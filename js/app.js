@@ -3,16 +3,21 @@ App.ApplicationAdapter = DS.FixtureAdapter;
 // App.ApplicationAdapter = DS.ActiveModelAdapter;
 
 App.Router.map(function() {
-  // put your routes here
+  this.resource('contracts');
 });
+
+App.ContractsRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.find('contract');
+  }
+});
+
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
     return this.store.find('contract');
   }
 });
-
-App.IndexController = Ember.ArrayController.extend({});
 
 App.Contract = DS.Model.extend({
   runtime: DS.attr('number'),
