@@ -10,37 +10,39 @@
 </head>
 <body>
   <script type="text/x-handlebars">
-    <h2>Vertrag</h2>
+    <h1>Vertragswesen</h1>
 
     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" id="index">
-    <ul>
-    {{#each item in model}}
-      <li>ID: {{item.id}}</li>
-      <li>Laufzeit: {{item.runtime}} Monate</li>
-      <li>Vertragsbeginn: {{item.formattedStartdate}}</li>
-      <li>Vertrag angelegt: {{item.formattedCreatedAt}}</li>
-      <li>Vertrag zuletzt aktualisiert: {{item.formattedUpdatedAt}}</li>
-    {{/each}}
-    </ul>
-  </script>
-
   <script type="text/x-handlebars" data-template-name="contracts">
-    <ul>
-    {{#each}}
-      {{show-contract item=this}}
-    {{/each}}
-    </ul>
+    <h2> Verträge </h2>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+      <thead>
+        <tr class="info">
+          <th>ID:</th>
+          <th>Laufzeit</th>
+          <th>Vertragsbeginn</th>
+          <th>Vertrag angelegt</th>
+          <th>Vertrag zuletzt aktualisiert</th>
+        </th>
+      </thead>
+      <tbody>
+        {{#each}}
+          {{show-contract item=this}}
+        {{/each}}
+      </tbody>
+    </table>
   </script>
 
   <script type="text/x-handlebars" id="components/show-contract">
-    <li>ID: {{item.id}}</li>
-    <li>Laufzeit: {{item.runtime}} Monate</li>
-    <li>Vertragsbeginn: {{item.formattedStartdate}} {{input type="text" value=item.formattedStartdate}}</li>
-    <li>Vertrag angelegt: {{item.formattedCreatedAt}}</li>
-    <li>Vertrag zuletzt aktualisiert: {{item.formattedUpdatedAt}}</li>
+    <tr>
+      <td>{{item.id}}</td>
+      <td>{{item.runtime}} Monate</td>
+      <td>{{item.formattedStartdate}}</td>
+      <td>{{item.formattedCreatedAt}}</td>
+      <td>{{item.formattedUpdatedAt}}</td>
+    </tr>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>

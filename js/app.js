@@ -14,8 +14,8 @@ App.ContractsRoute = Ember.Route.extend({
 
 
 App.IndexRoute = Ember.Route.extend({
-  model: function() {
-    return this.store.find('contract');
+  beforeModel: function() {
+    this.transitionTo('contracts');
   }
 });
 
@@ -47,4 +47,10 @@ App.Contract.FIXTURES = [{
   startdate: new Date(2014, 06, 02),
   created_at: new Date(2014, 06, 03, 12, 00, 00),
   updated_at: new Date(2014, 06, 03, 13, 12, 00)
+},{
+  id: 2,
+  runtime: 15,
+  startdate: new Date(2014, 06, 03),
+  created_at: new Date(2014, 06, 02, 12, 00, 00),
+  updated_at: new Date(2014, 06, 02, 13, 12, 00)
 }];
