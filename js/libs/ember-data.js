@@ -3,7 +3,7 @@
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors.
  *            Portions Copyright 2011 LivingSocial Inc.
  * @license   Licensed under MIT license (see license.js)
- * @version   1.0.0-beta.9+canary.3681c8a0
+ * @version   1.0.0-beta.8.2a68c63a
  */
 (function(global) {
 var define, requireModule, require, requirejs;
@@ -545,7 +545,7 @@ define("activemodel-adapter/lib/system/embedded_records_mixin",
       will behave in the following way:
 
       BelongsTo: `{serialize:'id', deserialize:'id'}`
-      HasMany:   `{serialize:'no',  deserialize:'ids'}`
+      HasMany:   `{serialize:no,  deserialize:'ids'}`
 
       ### Model Relationships
 
@@ -1139,8 +1139,7 @@ define("ember-data/lib/adapters/fixture_adapter",
         @return {Promise|Array}
       */
       queryFixtures: function(fixtures, query, type) {
-        Ember.assert('Not implemented: You must override the DS.FixtureAdapter::queryFixtures method to support querying the fixture store.');
-      },
+              },
 
       /**
         @method updateFixtures
@@ -1191,8 +1190,7 @@ define("ember-data/lib/adapters/fixture_adapter",
         var fixtures = this.fixturesForType(type),
             fixture;
 
-        Ember.assert("Unable to find fixtures for model type "+type.toString() +". If you're defining your fixtures using `Model.FIXTURES = ...`, please change it to `Model.reopenClass({ FIXTURES: ... })`.", fixtures);
-
+        
         if (fixtures) {
           fixture = Ember.A(fixtures).findProperty('id', id);
         }
@@ -1214,8 +1212,7 @@ define("ember-data/lib/adapters/fixture_adapter",
       findMany: function(store, type, ids) {
         var fixtures = this.fixturesForType(type);
 
-        Ember.assert("Unable to find fixtures for model type "+type.toString(), fixtures);
-
+        
         if (fixtures) {
           fixtures = fixtures.filter(function(item) {
             return indexOf(ids, item.id) !== -1;
@@ -1240,8 +1237,7 @@ define("ember-data/lib/adapters/fixture_adapter",
       findAll: function(store, type) {
         var fixtures = this.fixturesForType(type);
 
-        Ember.assert("Unable to find fixtures for model type "+type.toString(), fixtures);
-
+        
         return this.simulateRemoteCall(function() {
           return fixtures;
         }, this);
@@ -1259,8 +1255,7 @@ define("ember-data/lib/adapters/fixture_adapter",
       findQuery: function(store, type, query, array) {
         var fixtures = this.fixturesForType(type);
 
-        Ember.assert("Unable to find fixtures for model type " + type.toString(), fixtures);
-
+        
         fixtures = this.queryFixtures(fixtures, query, type);
 
         if (fixtures) {
@@ -2073,11 +2068,11 @@ define("ember-data/lib/core",
       /**
         @property VERSION
         @type String
-        @default '1.0.0-beta.9+canary.3681c8a0'
+        @default '1.0.0-beta.8.2a68c63a'
         @static
       */
       DS = Ember.Namespace.create({
-        VERSION: '1.0.0-beta.9+canary.3681c8a0'
+        VERSION: '1.0.0-beta.8.2a68c63a'
       });
 
       if (Ember.libraries) {
@@ -2272,9 +2267,7 @@ define("ember-data/lib/initializers/store",
       @param {Object} [application] an application namespace
     */
     __exports__["default"] = function initializeStore(container, application){
-      Ember.deprecate('Specifying a custom Store for Ember Data on your global namespace as `App.Store` ' +
-                      'has been deprecated. Please use `App.ApplicationStore` instead.', !(application && application.Store));
-
+      
       container.register('store:main', container.lookupFactory('store:application') || (application && application.Store) || Store);
 
       // allow older names to be looked up
@@ -3271,8 +3264,7 @@ define("ember-data/lib/serializers/json_serializer",
       */
       transformFor: function(attributeType, skipAssertion) {
         var transform = this.container.lookup('transform:' + attributeType);
-        Ember.assert("Unable to find transform for '" + attributeType + "'", skipAssertion || !!transform);
-        return transform;
+                return transform;
       }
     });
 
@@ -4775,8 +4767,7 @@ define("ember-data/lib/system/changes/relationship_change",
       } else if (options.key) {
         key = options.key;
       } else {
-        Ember.assert("You must pass either a parentType or belongsToName option to OneToManyChange.forChildAndParent", false);
-      }
+              }
 
       var change = RelationshipChange._createChange({
           parentRecord: parentRecord,
@@ -4825,8 +4816,7 @@ define("ember-data/lib/system/changes/relationship_change",
       } else if (options.key) {
         key = options.key;
       } else {
-        Ember.assert("You must pass either a parentType or belongsToName option to OneToManyChange.forChildAndParent", false);
-      }
+              }
 
       var change = RelationshipChange._createChange({
           parentRecord: parentRecord,
@@ -5066,9 +5056,7 @@ define("ember-data/lib/system/container_proxy",
 
     ContainerProxy.prototype.registerDeprecation = function(deprecated, valid) {
       var preLookupCallback = function(){
-        Ember.deprecate("You tried to look up '" + deprecated + "', " +
-                        "but this has been deprecated in favor of '" + valid + "'.", false);
-      };
+              };
 
       return this.registerAlias(deprecated, valid, preLookupCallback);
     };
@@ -5360,8 +5348,7 @@ define("ember-data/lib/system/model/attributes",
 
         this.eachComputedProperty(function(name, meta) {
           if (meta.isAttribute) {
-            Ember.assert("You may not set `id` as an attribute on your model. Please remove any lines that look like: `id: DS.attr('<type>')` from " + this.toString(), name !== 'id');
-
+            
             meta.name = name;
             map.set(name, meta);
           }
@@ -5587,8 +5574,7 @@ define("ember-data/lib/system/model/attributes",
 
       return Ember.computed('data', function(key, value) {
         if (arguments.length > 1) {
-          Ember.assert("You may not set `id` as an attribute on your model. Please remove any lines that look like: `id: DS.attr('<type>')` from " + this.constructor.toString(), key !== 'id');
-          var oldValue = getValue(this, key);
+                    var oldValue = getValue(this, key);
 
           if (value !== oldValue) {
             // Add the new value to the changed attributes hash; it will get deleted by
@@ -6746,8 +6732,7 @@ define("ember-data/lib/system/model/model",
       },
 
       materializeAttributes: function(attributes) {
-        Ember.assert("Must pass a hash of attributes to materializeAttributes", !!attributes);
-        merge(this._data, attributes);
+                merge(this._data, attributes);
       },
 
       materializeAttribute: function(name, value) {
@@ -7334,8 +7319,7 @@ define("ember-data/lib/system/model/states",
         pushedData: Ember.K,
 
         unloadRecord: function(record) {
-          Ember.assert("You can only unload a record which is not inFlight. `" + Ember.inspect(record) + " `", false);
-        },
+                  },
 
         // TODO: More robust semantics around save-while-in-flight
         willCommit: Ember.K,
@@ -7460,8 +7444,7 @@ define("ember-data/lib/system/model/states",
     createdState.uncommitted.propertyWasReset = Ember.K;
 
     function assertAgainstUnloadRecord(record) {
-      Ember.assert("You can only unload a record which is not inFlight. `" + Ember.inspect(record) + "`", false);
-    }
+          }
 
     updatedState.inFlight.unloadRecord = assertAgainstUnloadRecord;
 
@@ -8351,8 +8334,7 @@ define("ember-data/lib/system/record_arrays/many_array",
       replaceContent: function(index, removed, added) {
         // Map the array of record objects into an array of  client ids.
         added = map(added, function(record) {
-          Ember.assert("You cannot add '" + record.constructor.typeKey + "' records to this relationship (only '" + this.type.typeKey + "' allowed)", !this.type || record instanceof this.type);
-          return record;
+                    return record;
         }, this);
 
         this._super(index, removed, added);
@@ -8444,8 +8426,7 @@ define("ember-data/lib/system/record_arrays/many_array",
             type = get(this, 'type'),
             record;
 
-        Ember.assert("You cannot add '" + type.typeKey + "' records to this polymorphic relationship.", !get(this, 'isPolymorphic'));
-
+        
         record = store.createRecord.call(store, type, hash);
         this.pushObject(record);
 
@@ -8724,8 +8705,7 @@ define("ember-data/lib/system/relationships/belongs_to",
         meta.key = key;
 
         if (arguments.length === 2) {
-          Ember.assert("You can only add a '" + type + "' record to this relationship", !value || value instanceof typeForRelationshipMeta(store, meta));
-          return value === undefined ? null : PromiseObject.create({
+                    return value === undefined ? null : PromiseObject.create({
             promise: Promise.cast(value, promiseLabel)
           });
         }
@@ -8801,8 +8781,7 @@ define("ember-data/lib/system/relationships/belongs_to",
         options = type;
         type = undefined;
       } else {
-        Ember.assert("The first argument to DS.belongsTo must be a string representing a model type key, e.g. use DS.belongsTo('person') to define a relation to the App.Person model", !!type && (typeof type === 'string' || Model.detect(type)));
-      }
+              }
 
       options = options || {};
 
@@ -8829,8 +8808,7 @@ define("ember-data/lib/system/relationships/belongs_to",
         }
 
         if (arguments.length === 2) {
-          Ember.assert("You can only add a '" + type + "' record to this relationship", !value || value instanceof typeClass);
-          return value === undefined ? null : value;
+                    return value === undefined ? null : value;
         }
 
         belongsTo = data[key];
@@ -9029,8 +9007,7 @@ define("ember-data/lib/system/relationships/ext",
 
           if (possibleRelationships.length === 0) { return null; }
 
-          Ember.assert("You defined the '" + name + "' relationship on " + this + ", but multiple possible inverse relationships of type " + this + " were found on " + inverseType + ". Look at http://emberjs.com/guides/models/defining-models/#toc_explicit-inverses for how to explicitly specify inverses", possibleRelationships.length === 1);
-
+          
           inverseName = possibleRelationships[0].name;
           inverseKind = possibleRelationships[0].kind;
         }
@@ -9195,11 +9172,9 @@ define("ember-data/lib/system/relationships/ext",
             meta.key = name;
             type = typeForRelationshipMeta(this.store, meta);
 
-            Ember.assert("You specified a hasMany (" + meta.type + ") on " + meta.parentType + " but " + meta.type + " was not found.",  type);
-
+            
             if (!types.contains(type)) {
-              Ember.assert("Trying to sideload " + name + " on " + this.toString() + " but the type doesn't exist.", !!type);
-              types.push(type);
+                            types.push(type);
             }
           }
         });
@@ -9434,8 +9409,7 @@ define("ember-data/lib/system/relationships/has_many",
       return Ember.computed('data', function(key) {
         return buildRelationship(this, key, options, function(store, data) {
           var records = data[key];
-          Ember.assert("You looked up the '" + key + "' relationship on '" + this + "' but some of the associated records were not loaded. Either make sure they are all loaded together with the parent record, or specify that the relationship is async (`DS.hasMany({ async: true })`)", Ember.A(records).everyProperty('isEmpty', false));
-          return store.findMany(this, data[key], typeForRelationshipMeta(store, meta));
+                    return store.findMany(this, data[key], typeForRelationshipMeta(store, meta));
         });
       }).meta(meta).readOnly();
     }
@@ -9728,8 +9702,7 @@ define("ember-data/lib/system/store",
       defaultAdapter: Ember.computed('adapter', function() {
         var adapter = get(this, 'adapter');
 
-        Ember.assert('You tried to set `adapter` property to an instance of `DS.Adapter`, where it should be a name or a factory', !(adapter instanceof Adapter));
-
+        
         if (typeof adapter === 'string') {
           adapter = this.container.lookup('adapter:' + adapter) || this.container.lookup('adapter:application') || this.container.lookup('adapter:-rest');
         }
@@ -9911,9 +9884,7 @@ define("ember-data/lib/system/store",
         @return {Promise} promise
       */
       find: function(type, id) {
-        Ember.assert("You need to pass a type to the store's find method", arguments.length >= 1);
-        Ember.assert("You may not pass `" + id + "` as id to the store's find method", arguments.length === 1 || !Ember.isNone(id));
-
+                
         if (arguments.length === 1) {
           return this.findAll(type);
         }
@@ -9982,9 +9953,7 @@ define("ember-data/lib/system/store",
 
         var adapter = this.adapterFor(type);
 
-        Ember.assert("You tried to find a record but you have no adapter (for " + type + ")", adapter);
-        Ember.assert("You tried to find a record but your adapter (for " + type + ") does not implement 'find'", adapter.find);
-
+                
         var promise = _find(adapter, this, type, id);
         record.loadingData(promise);
         return promise;
@@ -10030,10 +9999,7 @@ define("ember-data/lib/system/store",
             adapter = this.adapterFor(type),
             id = get(record, 'id');
 
-        Ember.assert("You cannot reload a record without an ID", id);
-        Ember.assert("You tried to reload a record but you have no adapter (for " + type + ")", adapter);
-        Ember.assert("You tried to reload a record but your adapter does not implement `find`", adapter.find);
-
+                        
         return _find(adapter, this, type, id);
       },
 
@@ -10075,9 +10041,7 @@ define("ember-data/lib/system/store",
           var ids = records.mapProperty('id'),
               adapter = this.adapterFor(type);
 
-          Ember.assert("You tried to load many records but you have no adapter (for " + type + ")", adapter);
-          Ember.assert("You tried to load many records but your adapter does not implement `findMany`", adapter.findMany);
-
+                    
           promises.push(_findMany(adapter, this, type, ids, owner));
         }, this);
 
@@ -10112,10 +10076,10 @@ define("ember-data/lib/system/store",
         type = this.modelFor(type);
 
         id = coerceId(id);
-        var idToRecord = this.typeMapFor(type).idToRecord;
-        var record = idToRecord[id];
 
-        if (!record || !idToRecord.hasOwnProperty(id)) {
+        var record = this.typeMapFor(type).idToRecord[id];
+
+        if (!record) {
           record = this.buildRecord(type, id);
         }
 
@@ -10181,9 +10145,7 @@ define("ember-data/lib/system/store",
       findHasMany: function(owner, link, relationship, resolver) {
         var adapter = this.adapterFor(owner.constructor);
 
-        Ember.assert("You tried to load a hasMany relationship but you have no adapter (for " + owner.constructor + ")", adapter);
-        Ember.assert("You tried to load a hasMany relationship from a specified `link` in the original payload but your adapter does not implement `findHasMany`", adapter.findHasMany);
-
+                
         var records = this.recordArrayManager.createManyArray(relationship.type, Ember.A([]));
         resolver.resolve(_findHasMany(adapter, this, owner, link, relationship));
         return records;
@@ -10200,9 +10162,7 @@ define("ember-data/lib/system/store",
       findBelongsTo: function(owner, link, relationship) {
         var adapter = this.adapterFor(owner.constructor);
 
-        Ember.assert("You tried to load a belongsTo relationship but you have no adapter (for " + owner.constructor + ")", adapter);
-        Ember.assert("You tried to load a belongsTo relationship from a specified `link` in the original payload but your adapter does not implement `findBelongsTo`", adapter.findBelongsTo);
-
+                
         return _findBelongsTo(adapter, this, owner, link, relationship);
       },
 
@@ -10231,9 +10191,7 @@ define("ember-data/lib/system/store",
 
         var adapter = this.adapterFor(type);
 
-        Ember.assert("You tried to load a query but you have no adapter (for " + type + ")", adapter);
-        Ember.assert("You tried to load a query but your adapter does not implement `findQuery`", adapter.findQuery);
-
+                
         return promiseArray(_findQuery(adapter, this, type, query, array));
       },
 
@@ -10266,9 +10224,7 @@ define("ember-data/lib/system/store",
 
         set(array, 'isUpdating', true);
 
-        Ember.assert("You tried to load all records but you have no adapter (for " + type + ")", adapter);
-        Ember.assert("You tried to load all records but your adapter does not implement `findAll`", adapter.findAll);
-
+                
         return promiseArray(_findAll(adapter, this, type, sinceToken));
       },
 
@@ -10582,8 +10538,7 @@ define("ember-data/lib/system/store",
         var oldId = get(record, 'id'),
             id = coerceId(data.id);
 
-        Ember.assert("An adapter cannot assign a new id to a record that already has an id. " + record + " had id: " + oldId + " and you tried to update it with " + id + ". This likely happened because your server returned data in response to a find or update that had a different id than the one you sent.", oldId === null || id === oldId);
-
+        
         this.typeMapFor(record.constructor).idToRecord[id] = record;
 
         set(record, 'id', id);
@@ -10739,8 +10694,7 @@ define("ember-data/lib/system/store",
         // If passed, it means that the data should be
         // merged into the existing data, not replace it.
 
-        Ember.assert("You must include an `id` for " + type + " in a hash passed to `push`", data.id != null);
-
+        
         type = this.modelFor(type);
 
         // normalize relationship IDs into records
@@ -10800,8 +10754,7 @@ define("ember-data/lib/system/store",
         if (!payload) {
           payload = type;
           serializer = defaultSerializer(this.container);
-          Ember.assert("You cannot use `store#pushPayload` without a type unless your default serializer defines `pushPayload`", serializer.pushPayload);
-        } else {
+                  } else {
           serializer = this.serializerFor(type);
         }
         serializer.pushPayload(this, payload);
@@ -10840,8 +10793,7 @@ define("ember-data/lib/system/store",
         @return {DS.Model} the record that was updated.
       */
       update: function(type, data) {
-        Ember.assert("You must include an `id` for " + type + " in a hash passed to `update`", data.id != null);
-
+        
         return this.push(type, data, true);
       },
 
@@ -10890,9 +10842,7 @@ define("ember-data/lib/system/store",
         var typeMap = this.typeMapFor(type),
             idToRecord = typeMap.idToRecord;
 
-        Ember.assert('The id ' + id + ' has already been used with another record of type ' + type.toString() + '.', !id || !idToRecord.hasOwnProperty(id));
-        Ember.assert("`" + Ember.inspect(type)+ "` does not appear to be an ember-data model", (typeof type._create === 'function') );
-
+                
         // lookupFactory should really return an object that creates
         // instances with the injections applied
         var record = type._create({
@@ -11135,16 +11085,8 @@ define("ember-data/lib/system/store",
     // in the payload, so add them back in manually.
     function addUnsavedRecords(record, key, data) {
       if(record) {
-        var unsavedRecords = uniqById(Ember.A(data), record.get(key).filterBy('isNew'));
-        Ember.A(data).pushObjects(unsavedRecords);
+        Ember.A(data).pushObjects(record.get(key).filterBy('isNew'));
       }
-    }
-
-    function uniqById(data, records) {
-      var currentIds = data.mapBy("id");
-      return records.reject(function(record) {
-        return Ember.A(currentIds).contains(record.id);
-      });
     }
 
     // Delegation to the adapter and promise management
@@ -11261,8 +11203,7 @@ define("ember-data/lib/system/store",
           label = "DS: Handle Adapter#find of " + type + " with id: " + id;
 
       return Promise.cast(promise, label).then(function(adapterPayload) {
-        Ember.assert("You made a request for a " + type.typeKey + " with id " + id + ", but the adapter's response did not have any data", adapterPayload);
-        var payload = serializer.extract(store, type, adapterPayload, id, 'find');
+                var payload = serializer.extract(store, type, adapterPayload, id, 'find');
 
         return store.push(type, payload);
       }, function(error) {
@@ -11280,8 +11221,7 @@ define("ember-data/lib/system/store",
       return Promise.cast(promise, label).then(function(adapterPayload) {
         var payload = serializer.extract(store, type, adapterPayload, null, 'findMany');
 
-        Ember.assert("The response from a findMany must be an Array, not " + Ember.inspect(payload), Ember.typeOf(payload) === 'array');
-
+        
         store.pushMany(type, payload);
       }, null, "DS: Extract payload of " + type);
     }
@@ -11294,8 +11234,7 @@ define("ember-data/lib/system/store",
       return Promise.cast(promise, label).then(function(adapterPayload) {
         var payload = serializer.extract(store, relationship.type, adapterPayload, null, 'findHasMany');
 
-        Ember.assert("The response from a findHasMany must be an Array, not " + Ember.inspect(payload), Ember.typeOf(payload) === 'array');
-
+        
         var records = store.pushMany(relationship.type, payload);
         record.updateHasMany(relationship.key, records);
       }, null, "DS: Extract payload of " + record + " : hasMany " + relationship.type);
@@ -11323,8 +11262,7 @@ define("ember-data/lib/system/store",
       return Promise.cast(promise, label).then(function(adapterPayload) {
         var payload = serializer.extract(store, type, adapterPayload, null, 'findAll');
 
-        Ember.assert("The response from a findAll must be an Array, not " + Ember.inspect(payload), Ember.typeOf(payload) === 'array');
-
+        
         store.pushMany(type, payload);
         store.didUpdateAll(type);
         return store.all(type);
@@ -11339,8 +11277,7 @@ define("ember-data/lib/system/store",
       return Promise.cast(promise, label).then(function(adapterPayload) {
         var payload = serializer.extract(store, type, adapterPayload, null, 'findQuery');
 
-        Ember.assert("The response from a findQuery must be an Array, not " + Ember.inspect(payload), Ember.typeOf(payload) === 'array');
-
+        
         recordArray.load(payload);
         return recordArray;
       }, null, "DS: Extract payload of findQuery " + type);
@@ -11352,8 +11289,7 @@ define("ember-data/lib/system/store",
           serializer = serializerForAdapter(adapter, type),
           label = "DS: Extract and notify about " + operation + " completion of " + record;
 
-      Ember.assert("Your adapter's '" + operation + "' method must return a promise, but it returned " + promise, isThenable(promise));
-
+      
       return promise.then(function(adapterPayload) {
         var payload;
 
