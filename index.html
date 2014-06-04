@@ -2,13 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Ember Starter Kit</title>
+  <title>Vertragswesen</title>
+  <!-- CSS -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.css">
 </head>
 <body>
+  <!-- TEMLATES -->
   <script type="text/x-handlebars">
     <h1>Vertragswesen</h1>
 
@@ -21,7 +23,7 @@
     <table class="table table-striped table-bordered table-hover table-condensed">
       <thead>
         <tr class="info">
-          <th>ID:</th>
+          <th>ID</th>
           <th>Laufzeit</th>
           <th>Vertragsbeginn</th>
           <th>Vertrag angelegt</th>
@@ -37,6 +39,49 @@
     </table>
   </script>
 
+  <script type="text/x-handlebars" data-template-name="contract">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+      <thead>
+        <tr class="info">
+          <th>Vertrag</th>
+          <th>Laufzeit</th>
+          <th>Vertragsbeginn</th>
+          <th>Vertrag angelegt</th>
+          <th>Vertrag zuletzt aktualisiert</th>
+        </th>
+      </thead>
+
+      <tbody>
+        {{contract-tableline item=this}}
+      </tbody>
+
+      <thead>
+        <tr class="info">
+          <th>Position</th>
+          <th>Artikelnummer</th>
+          <th>Beschreibung</th>
+          <th>Beschreibung (EN)</th>
+          <th>Menge</th>
+          <th>Einheit</th>
+          <th>Druckvolumen</th>
+          <th>Produktpreis</th>
+          <th>Mehrwertsteuer</th>
+          <th>Positionswert</th>
+          <th>Rabatt absolut </th>
+          <th>Position angelegt</th>
+          <th>Position zuletzt aktualisiert</th>
+        </th>
+
+      <tbody>
+        {{#each contractItems}}
+          {{contract-tableline item=this}}
+        {{/each}}
+      </tbody>
+      </thead>
+
+    </table>
+  </script>
+
   <script type="text/x-handlebars" id="components/contract-tableline">
     <tr>
       <td>{{item.id}}</td>
@@ -47,6 +92,7 @@
     </tr>
   </script>
 
+  <!-- JAVASCRIPT -->
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.5.1.js"></script>
