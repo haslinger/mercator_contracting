@@ -24,21 +24,18 @@ App.Contract = DS.Model.extend({
   startdate: DS.attr('date'),
   created_at: DS.attr('string'),
   updated_at: DS.attr('string'),
+});
 
-  formattedCreatedAt: function() {
-    moment.lang('de');
-    return moment(this.get('created_at')).format("LLL");
-  }.property('created_at'),
+Ember.Handlebars.helper('format_date', function(value, options) {
+  moment.lang('de');
+  var formatted_date= moment(value).format("LL");
+  return new Ember.Handlebars.SafeString(formatted_date);
+});
 
-  formattedUpdatedAt: function() {
-    moment.lang('de');
-    return moment(this.get('updated_at')).format("LLL");
-  }.property('updated_at'),
-
-  formattedStartdate: function() {
-    moment.lang('de');
-    return moment(this.get('startdate')).format("LL");
-  }.property('startdate')
+Ember.Handlebars.helper('format_datetime', function(value, options) {
+  moment.lang('de');
+  var formatted_date= moment(value).format("LLL");
+  return new Ember.Handlebars.SafeString(formatted_date);
 });
 
 App.Contract.FIXTURES = [{

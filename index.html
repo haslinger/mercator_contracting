@@ -17,6 +17,7 @@
 
   <script type="text/x-handlebars" data-template-name="contracts">
     <h2> Verträge </h2>
+
     <table class="table table-striped table-bordered table-hover table-condensed">
       <thead>
         <tr class="info">
@@ -27,21 +28,22 @@
           <th>Vertrag zuletzt aktualisiert</th>
         </th>
       </thead>
+
       <tbody>
         {{#each}}
-          {{show-contract item=this}}
+          {{contract-tableline item=this}}
         {{/each}}
       </tbody>
     </table>
   </script>
 
-  <script type="text/x-handlebars" id="components/show-contract">
+  <script type="text/x-handlebars" id="components/contract-tableline">
     <tr>
       <td>{{item.id}}</td>
       <td>{{item.runtime}} Monate</td>
-      <td>{{item.formattedStartdate}}</td>
-      <td>{{item.formattedCreatedAt}}</td>
-      <td>{{item.formattedUpdatedAt}}</td>
+      <td>{{format_date item.startdate}}</td>
+      <td>{{format_datetime item.createdAt}}</td>
+      <td>{{format_datetime item.updatedAt}}</td>
     </tr>
   </script>
 
