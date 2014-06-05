@@ -41,6 +41,8 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="contract">
+      <h2> Vertrag </h2>
+
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
           <tr class="danger">
@@ -70,6 +72,7 @@
             <th>Druckvolumen S/W</th>
             <th>Druckvolumen Farbe</th>
             <th>Produktpreis</th>
+            <th>Marge</th>
             <th>Mehrwertsteuer</th>
             <th>Positionswert</th>
             <th>Rabatt absolut </th>
@@ -86,9 +89,98 @@
       </table>
     </script>
 
+    <script type="text/x-handlebars" data-template-name="contractItem">
+      <h2> Vertragsposition </h2>
+
+      <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+          <tr class="danger">
+            <th>Position</th>
+            <th>Laufzeit</th>
+            <th>Vertragsbeginn</th>
+            <th>Vertragsende</th>
+            <th>Artikelnummer</th>
+            <th>Beschreibung</th>
+            <th>Beschreibung (EN)</th>
+            <th>Menge</th>
+            <th>Druckvolumen S/W</th>
+            <th>Druckvolumen Farbe</th>
+            <th>Produktpreis</th>
+            <th>Marge</th>
+            <th>Mehrwertsteuer</th>
+            <th>Positionswert</th>
+            <th>Rabatt absolut </th>
+            <th>Monitoring </th>
+            <th>Position angelegt</th>
+            <th>Position zuletzt aktualisiert</th>
+          </th>
+        </thead>
+        <tbody>
+          {{contractitem-tableline item=this}}
+        </tbody>
+      </table>
+
+      <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+          <tr>
+            <th colspan=13></th>
+            <th colspan=6 class="danger">Verbrauch Jahr</th>
+            <th colspan=6 class="danger">Planung Vebrauch Jahr</th>
+            <th colspan=6 class="danger">Gutschrift / Nachzahlung Jahr</th>
+          <tr class="danger">
+            <th>Position</th>
+            <th>Vertragsart</th>
+            <th>Artikelnummer</th>
+            <th>Produktlinie</th>
+            <th>Beschreibung</th>
+            <th>Beschreibung (EN)</th>
+            <th>Menge Gesamt</th>
+            <th>Reichweite</th>
+            <th>HEK</th>
+            <th>Preis / Stück</th>
+            <th>Preis / Total</th>
+            <th>Rate p.m.</th>
+            <th>Laufzeit</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+          </th>
+        <tbody>
+          {{#each item in consumableItems}}
+            {{consumableitem-tableline item=item}}
+          {{/each}}
+        </tbody>
+        </thead>
+      </table>
+    </script>
+
+    <script type="text/x-handlebars" id="components/contract-tableline">
+      <td>{{item.id}}</td>
+      <td class="success">{{item.term}} Monate</td>
+      <td class="success">{{format_date item.startdate}}</td>
+      <td class="success">{{format_date item.enddate}}</td>
+      <td class="success">{{format_datetime item.createdAt}}</td>
+      <td class="success">{{format_datetime item.updatedAt}}</td>
+    </script>
+
     <script type="text/x-handlebars" id="components/contractitem-tableline">
       <td>{{item.position}}</td>
-      <td class="success">{{item.runtime}} Monate</td>
+      <td class="success">{{item.term}} Monate</td>
       <td class="success">{{format_date item.startdate}}</td>
       <td class="success">{{format_date item.enddate}}</td>
       <td class="info">{{item.productNumber}}</td>
@@ -98,6 +190,7 @@
       <td class="info">{{item.volumeBW}} Seiten</td>
       <td class="info">{{item.volumeColor}}  Seiten</td>
       <td class="warning">{{format_currency item.productPrice}}</td>
+      <td class="warning">{{item.marge}}%</td>
       <td class="warning">{{item.vat}}%</td>
       <td class="warning">{{format_currency item.value}}</td>
       <td class="warning">{{format_currency item.discountAbs}}</td>
@@ -106,13 +199,38 @@
       <td class="success">{{format_datetime item.updatedAt}}</td>
     </script>
 
-    <script type="text/x-handlebars" id="components/contract-tableline">
-      <td>{{item.id}}</td>
-      <td class="success">{{item.runtime}} Monate</td>
-      <td class="success">{{format_date item.startdate}}</td>
-      <td class="success">{{format_date item.enddate}}</td>
-      <td class="success">{{format_datetime item.createdAt}}</td>
-      <td class="success">{{format_datetime item.updatedAt}}</td>
+    <script type="text/x-handlebars" id="components/consumableitem-tableline">
+      <td>{{item.position}}</td>
+      <td class="info">{{item.contractType}}</td>
+      <td class="info">{{item.productNumber}}</td>
+      <td class="info">{{item.productLine}}</td>
+      <td class="info">{{item.descriptionDe}}</td>
+      <td class="info">{{item.descriptionEn}}</td>
+      <td class="warning">{{item.amount}} Stk.</td>
+      <td class="info">{{item.yield}} Seiten</td>
+      <td class="warning">{{format_currency item.wholesalePrice}}</td>
+      <td class="warning">{{format_currency item.price}}</td>
+      <td class="warning">{{format_currency item.value}}</td>
+      <td class="warning">{{format_currency item.monthlyRate}}</td>
+      <td class="success">{{item.term}} Monate</td>
+      <td class="warning">{{item.consumption1}} Stk.</td>
+      <td class="warning">{{item.consumption2}} Stk.</td>
+      <td class="warning">{{item.consumption3}} Stk.</td>
+      <td class="warning">{{item.consumption4}} Stk.</td>
+      <td class="warning">{{item.consumption5}} Stk.</td>
+      <td class="warning">{{item.consumption6}} Stk.</td>
+      <td class="success">{{item.consumptionEstimate1}} Stk.</td>
+      <td class="success">{{item.consumptionEstimate2}} Stk.</td>
+      <td class="success">{{item.consumptionEstimate3}} Stk.</td>
+      <td class="success">{{item.consumptionEstimate4}} Stk.</td>
+      <td class="success">{{item.consumptionEstimate5}} Stk.</td>
+      <td class="success">{{item.consumptionEstimate6}} Stk.</td>
+      <td class="warning">{{format_currency item.balance1}}</td>
+      <td class="warning">{{format_currency item.balance2}}</td>
+      <td class="warning">{{format_currency item.balance3}}</td>
+      <td class="warning">{{format_currency item.balance4}}</td>
+      <td class="warning">{{format_currency item.balance5}}</td>
+      <td class="warning">{{format_currency item.balance6}}</td>
     </script>
 
     <!-- JAVASCRIPT -->
@@ -125,7 +243,5 @@
     <script src="js/app.js"></script>
     <!-- to activate the test runner, add the "?test" query string parameter -->
     <script src="tests/runner.js"></script>
-
   </body>
 </html>
-
