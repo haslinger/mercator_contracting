@@ -43,8 +43,6 @@
     <script type="text/x-handlebars" data-template-name="contract">
       <h2> Vertrag </h2>
 
-      {{#link-to 'contracts'}}Alle Verträge{{/link-to}}
-
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
           <tr class="danger">
@@ -89,12 +87,19 @@
         </tbody>
         </thead>
       </table>
+
+      <div class="btn-group">
+        {{#link-to 'contracts' class="btn btn-info btn-sm"}}
+          <span class="glyphicon glyphicon-zoom-out">
+        {{/link-to}}
+        {{#link-to 'contracts' class="btn btn-info btn-sm"}}
+        alle Verträge
+        {{/link-to}}
+      </div>
     </script>
 
     <script type="text/x-handlebars" data-template-name="contractItem">
       <h2> Vertragsposition </h2>
-
-      Zurück zum {{#link-to 'contract' this.contract.id}}Vertrag{{/link-to}}
 
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
@@ -171,12 +176,21 @@
         </tbody>
         </thead>
       </table>
+
+      <div class="btn-group">
+        {{#link-to 'contract' this.contract.id class="btn btn-info btn-sm"}}
+          <span class="glyphicon glyphicon-zoom-out">
+        {{/link-to}}
+        {{#link-to 'contract' this.contract.id class="btn btn-info btn-sm"}}
+        Vertrag {{this.contract.id}}
+        {{/link-to}}
+      </div>
     </script>
 
     <script type="text/x-handlebars" id="components/contract-tableline">
       <td>
         {{#link-to 'contract' item.id}}
-          {{item.id}}
+          <span class="glyphicon glyphicon-zoom-in">{{item.id}}
         {{/link-to}}
       </td>
       <td class="success">{{item.term}} Monate</td>
@@ -189,7 +203,7 @@
     <script type="text/x-handlebars" id="components/contractitem-tableline">
       <td>
         {{#link-to 'contractItem' item.id}}
-          {{item.position}}
+          <span class="glyphicon glyphicon-zoom-in">{{item.position}}
         {{/link-to}}
       </td>
       <td class="success">{{item.term}} Monate</td>
