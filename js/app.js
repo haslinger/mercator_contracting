@@ -75,8 +75,6 @@ App.ConsumableItem = DS.Model.extend({
   amount:               DS.attr('number'),
   yield:                DS.attr('number'),
   wholesalePrice:       DS.attr('number'),
-  value:                DS.attr('number'),
-  monthlyRate:          DS.attr('number'),
   term:                 DS.attr('number'),
   consumption1:         DS.attr('number'),
   consumption2:         DS.attr('number'),
@@ -99,13 +97,17 @@ App.ConsumableItem = DS.Model.extend({
 
 
   price: function() {
-      var marge ;
-      this.get('contractItem').then( function(contractItem) {
-        marge = contractItem.get('marge');
-        return marge
-      });
-      return this.get('wholesalePrice') * (100 + marge ) / 100
-     }.property('price')
+    return this.get('wholesalePrice') * (100 + parseFloat(this.get('contractItem').get('marge')) ) / 100
+  }.property('wholesalePrice', 'contractItem.marge'),
+
+  value: function() {
+    return this.get('price') * this.get('amount')
+  }.property('price', "amount"),
+
+  monthlyRate: function() {
+    return this.get('value') / this.get('term')
+  }.property('value', "term")
+
 });
 
 // HELPER //

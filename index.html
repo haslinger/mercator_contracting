@@ -216,7 +216,7 @@
       <td class="info">{{item.volumeBW}} Seiten</td>
       <td class="info">{{item.volumeColor}}  Seiten</td>
       <td class="warning">{{format_currency item.productPrice}}</td>
-      <td class="warning">{{item.marge}}%</td>
+      <td class="warning">{{input type="text" value=item.marge size=2}}%</td>
       <td class="warning">{{item.vat}}%</td>
       <td class="warning">{{format_currency item.value}}</td>
       <td class="warning">{{format_currency item.discountAbs}}</td>
@@ -234,11 +234,11 @@
       <td class="info">{{item.descriptionEn}}</td>
       <td class="warning">{{item.amount}} Stk.</td>
       <td class="info">{{item.yield}} Seiten</td>
-      <td class="warning">{{format_currency item.wholesalePrice}}</td>
+      <td class="warning">{{input type="text" value=item.wholesalePrice size=2}} EUR</td>
       <td class="warning">{{format_currency item.price}}</td>
       <td class="warning">{{format_currency item.value}}</td>
       <td class="warning">{{format_currency item.monthlyRate}}</td>
-      <td class="success">{{item.term}} Monate</td>
+      <td class="success">{{input type="text" value=item.term size=2}} Monate</td>
       <td class="warning">{{item.consumption1}} Stk.</td>
       <td class="warning">{{item.consumption2}} Stk.</td>
       <td class="warning">{{item.consumption3}} Stk.</td>
