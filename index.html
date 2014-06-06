@@ -43,6 +43,8 @@
     <script type="text/x-handlebars" data-template-name="contract">
       <h2> Vertrag </h2>
 
+      {{#link-to 'contracts'}}Alle Verträge{{/link-to}}
+
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
           <tr class="danger">
@@ -91,6 +93,8 @@
 
     <script type="text/x-handlebars" data-template-name="contractItem">
       <h2> Vertragsposition </h2>
+
+      Zurück zum {{#link-to 'contract' this.contract.id}}Vertrag{{/link-to}}
 
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
@@ -170,7 +174,11 @@
     </script>
 
     <script type="text/x-handlebars" id="components/contract-tableline">
-      <td>{{item.id}}</td>
+      <td>
+        {{#link-to 'contract' item.id}}
+          {{item.id}}
+        {{/link-to}}
+      </td>
       <td class="success">{{item.term}} Monate</td>
       <td class="success">{{format_date item.startdate}}</td>
       <td class="success">{{format_date item.enddate}}</td>
@@ -179,7 +187,11 @@
     </script>
 
     <script type="text/x-handlebars" id="components/contractitem-tableline">
-      <td>{{item.position}}</td>
+      <td>
+        {{#link-to 'contractItem' item.id}}
+          {{item.position}}
+        {{/link-to}}
+      </td>
       <td class="success">{{item.term}} Monate</td>
       <td class="success">{{format_date item.startdate}}</td>
       <td class="success">{{format_date item.enddate}}</td>
