@@ -82,11 +82,6 @@ App.ConsumableItem = DS.Model.extend({
   consumption4:         DS.attr('number'),
   consumption5:         DS.attr('number'),
   consumption6:         DS.attr('number'),
-  balance1:             DS.attr('number'),
-  balance2:             DS.attr('number'),
-  balance3:             DS.attr('number'),
-  balance4:             DS.attr('number'),
-  balance5:             DS.attr('number'),
   balance6:             DS.attr('number'),
 
   price: function() {
@@ -114,53 +109,56 @@ App.ConsumableItem = DS.Model.extend({
   }.property('term', 'contractItem.term', 'monthlyRate', 'consumption1', 'price', 'amount'),
 
   newRate3: function() {
-    if (this.get('term') == 'contractItem.term') {
-      if (this.get('amount') * 12 / this.get('term') >= 1) {
-        return this.get('consumption2') * this.get('price') / 12
-      } else {
-        return this.get('monthlyRate');
-      }
+    if (this.get('consumption2') > 0 ) {
+      return this.get('consumption2') * this.get('price');
     } else {
-      return this.get('monthlyRate');
+      return '-';
     }
-  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption2', 'price', 'amount'),
+  }.property('consumption2', 'price'),
 
   newRate4: function() {
-    if (this.get('term') == 'contractItem.term') {
-      if (this.get('amount') * 12 / this.get('term') >= 1) {
-        return this.get('consumption3') * this.get('price') / 12
-      } else {
-        return this.get('monthlyRate');
-      }
+    if (this.get('consumption3') > 0 ) {
+      return this.get('consumption3') * this.get('price');
     } else {
-      return this.get('monthlyRate');
+      return '-';
     }
-  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption3', 'price', 'amount'),
+  }.property('consumption3', 'price'),
 
   newRate5: function() {
-    if (this.get('term') == 'contractItem.term') {
-      if (this.get('amount') * 12 / this.get('term') >= 1) {
-        return this.get('consumption4') * this.get('price') / 12
-      } else {
-        return this.get('monthlyRate');
-      }
+    if (this.get('consumption4') > 0 ) {
+      return this.get('consumption4') * this.get('price');
     } else {
-      return this.get('monthlyRate');
+      return '-';
     }
-  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption4', 'price', 'amount'),
+  }.property('consumption4', 'price'),
 
   newRate6: function() {
-    if (this.get('term') == 'contractItem.term') {
-      if (this.get('amount') * 12 / this.get('term') >= 1) {
-        return this.get('consumption5') * this.get('price') / 12
-      } else {
-        return this.get('monthlyRate');
-      }
+    if (this.get('consumption5') > 0 ) {
+      return this.get('consumption5') * this.get('price');
     } else {
-      return this.get('monthlyRate');
+      return '-';
     }
-  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption5', 'price', 'amount')
+  }.property('consumption5', 'price'),
 
+  balance1: function() {
+    return (this.get('newRate2') - this.get('monthlyRate')) * 12;
+  }.property('newRate2', 'monthlyRate'),
+
+  balance2: function() {
+    return (this.get('newRate3') - this.get('newRate2')) * 12;
+  }.property('newRate3', 'newRate2'),
+
+  balance3: function() {
+    return (this.get('newRate4') - this.get('newRate3')) * 12;
+  }.property('newRate4', 'newRate3'),
+
+  balance4: function() {
+    return (this.get('newRate5') - this.get('newRate4')) * 12;
+  }.property('newRate5', 'newRate4'),
+
+  balance5: function() {
+    return (this.get('newRate6') - this.get('newRate5')) * 12;
+  }.property('newRate6', 'newRate5')
 });
 
 
@@ -223,7 +221,7 @@ App.ContractItem.FIXTURES = [{
   createdAt:        new Date(2014, 06, 07, 12, 00, 00),
   updatedAt:        new Date(2014, 06, 08, 13, 00, 00),
   contract:         1,
-  consumableItems: [1]
+  consumableItems: [1, 2]
   },{
   id:               2,
   position:         2,
@@ -256,7 +254,6 @@ App.ConsumableItem.FIXTURES = [{
   productLine:          'M775z',
   descriptionDe:        'Toner Schwarz',
   descriptionEn:        '',
-  amount:               31,
   yield:                13500,
   wholesalePrice:       32.07,
   term:                 60,
@@ -265,13 +262,25 @@ App.ConsumableItem.FIXTURES = [{
   consumption3:         0,
   consumption4:         0,
   consumption5:         0,
-  consumption6:         0,
-  balance1:             0,
-  balance2:             0,
-  balance3:             0,
-  balance4:             0,
-  balance5:             0,
-  balance6:             0
+  consumption6:         0
+},{
+  id:                   2,
+  position:             2,
+  contractItem:         1,
+  contractType:         'Haupt',
+  productNumber:        'CE340B',
+  productLine:          'M775z',
+  descriptionDe:        'Toner Cyan',
+  descriptionEn:        '',
+  yield:                16.000,
+  wholesalePrice:       201.71,
+  term:                 60,
+  consumption1:         0,
+  consumption2:         0,
+  consumption3:         0,
+  consumption4:         0,
+  consumption5:         0,
+  consumption6:         0
 }];
 
 
