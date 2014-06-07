@@ -82,12 +82,6 @@ App.ConsumableItem = DS.Model.extend({
   consumption4:         DS.attr('number'),
   consumption5:         DS.attr('number'),
   consumption6:         DS.attr('number'),
-  consumptionEstimate1: DS.attr('number'),
-  consumptionEstimate2: DS.attr('number'),
-  consumptionEstimate3: DS.attr('number'),
-  consumptionEstimate4: DS.attr('number'),
-  consumptionEstimate5: DS.attr('number'),
-  consumptionEstimate6: DS.attr('number'),
   balance1:             DS.attr('number'),
   balance2:             DS.attr('number'),
   balance3:             DS.attr('number'),
@@ -95,20 +89,80 @@ App.ConsumableItem = DS.Model.extend({
   balance5:             DS.attr('number'),
   balance6:             DS.attr('number'),
 
-
   price: function() {
     return this.get('wholesalePrice') * (100 + parseFloat(this.get('contractItem').get('marge')) ) / 100
   }.property('wholesalePrice', 'contractItem.marge'),
 
   value: function() {
     return this.get('price') * this.get('amount')
-  }.property('price', "amount"),
+  }.property('price', 'amount'),
 
   monthlyRate: function() {
     return this.get('value') / this.get('term')
-  }.property('value', "term")
+  }.property('value', 'term'),
+
+  newRate2: function() {
+    if (this.get('term') == 'contractItem.term') {
+      if (this.get('amount') * 12 / this.get('term') >= 1) {
+        return this.get('consumption1') * this.get('price') / 12
+      } else {
+        return this.get('monthlyRate');
+      }
+    } else {
+      return this.get('monthlyRate');
+    }
+  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption1', 'price', 'amount'),
+
+  newRate3: function() {
+    if (this.get('term') == 'contractItem.term') {
+      if (this.get('amount') * 12 / this.get('term') >= 1) {
+        return this.get('consumption2') * this.get('price') / 12
+      } else {
+        return this.get('monthlyRate');
+      }
+    } else {
+      return this.get('monthlyRate');
+    }
+  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption2', 'price', 'amount'),
+
+  newRate4: function() {
+    if (this.get('term') == 'contractItem.term') {
+      if (this.get('amount') * 12 / this.get('term') >= 1) {
+        return this.get('consumption3') * this.get('price') / 12
+      } else {
+        return this.get('monthlyRate');
+      }
+    } else {
+      return this.get('monthlyRate');
+    }
+  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption3', 'price', 'amount'),
+
+  newRate5: function() {
+    if (this.get('term') == 'contractItem.term') {
+      if (this.get('amount') * 12 / this.get('term') >= 1) {
+        return this.get('consumption4') * this.get('price') / 12
+      } else {
+        return this.get('monthlyRate');
+      }
+    } else {
+      return this.get('monthlyRate');
+    }
+  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption4', 'price', 'amount'),
+
+  newRate6: function() {
+    if (this.get('term') == 'contractItem.term') {
+      if (this.get('amount') * 12 / this.get('term') >= 1) {
+        return this.get('consumption5') * this.get('price') / 12
+      } else {
+        return this.get('monthlyRate');
+      }
+    } else {
+      return this.get('monthlyRate');
+    }
+  }.property('term', 'contractItem.term', 'monthlyRate', 'consumption5', 'price', 'amount')
 
 });
+
 
 // HELPER //
 
@@ -205,9 +259,6 @@ App.ConsumableItem.FIXTURES = [{
   amount:               31,
   yield:                13500,
   wholesalePrice:       32.07,
-  price:                37,
-  value:                0,
-  monthlyRate:          0,
   term:                 60,
   consumption1:         0,
   consumption2:         0,
@@ -215,12 +266,6 @@ App.ConsumableItem.FIXTURES = [{
   consumption4:         0,
   consumption5:         0,
   consumption6:         0,
-  consumptionEstimate1: 0,
-  consumptionEstimate2: 0,
-  consumptionEstimate3: 0,
-  consumptionEstimate4: 0,
-  consumptionEstimate5: 0,
-  consumptionEstimate6: 0,
   balance1:             0,
   balance2:             0,
   balance3:             0,
@@ -228,6 +273,7 @@ App.ConsumableItem.FIXTURES = [{
   balance5:             0,
   balance6:             0
 }];
+
 
 // COMPONENTS //
 

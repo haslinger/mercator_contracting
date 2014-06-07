@@ -134,7 +134,7 @@
           <tr>
             <th colspan=13></th>
             <th colspan=6 class="danger">Verbrauch Jahr</th>
-            <th colspan=6 class="danger">Planung Vebrauch Jahr</th>
+            <th colspan=5 class="danger">Neuberechnung Jahr</th>
             <th colspan=6 class="danger">Gutschrift / Nachzahlung Jahr</th>
           <tr class="danger">
             <th>Position</th>
@@ -156,7 +156,6 @@
             <th>4</th>
             <th>5</th>
             <th>6</th>
-            <th>1</th>
             <th>2</th>
             <th>3</th>
             <th>4</th>
@@ -206,7 +205,7 @@
           <span class="glyphicon glyphicon-zoom-in">{{item.position}}
         {{/link-to}}
       </td>
-      <td class="success">{{item.term}} Monate</td>
+      <td class="success">{{input type="text" value=item.term size=1}} Monate</td>
       <td class="success">{{format_date item.startdate}}</td>
       <td class="success">{{format_date item.enddate}}</td>
       <td class="info">{{item.productNumber}}</td>
@@ -234,23 +233,22 @@
       <td class="info">{{item.descriptionEn}}</td>
       <td class="warning">{{item.amount}} Stk.</td>
       <td class="info">{{item.yield}} Seiten</td>
-      <td class="warning">{{input type="text" value=item.wholesalePrice size=1 class="input-mini"}} EUR</td>
+      <td class="warning">{{input type="text" value=item.wholesalePrice size=1}} EUR</td>
       <td class="warning">{{format_currency item.price}}</td>
       <td class="warning">{{format_currency item.value}}</td>
       <td class="warning">{{format_currency item.monthlyRate}}</td>
       <td class="success">{{input type="text" value=item.term size=1}} Monate</td>
-      <td class="warning">{{item.consumption1}} Stk.</td>
-      <td class="warning">{{item.consumption2}} Stk.</td>
-      <td class="warning">{{item.consumption3}} Stk.</td>
-      <td class="warning">{{item.consumption4}} Stk.</td>
-      <td class="warning">{{item.consumption5}} Stk.</td>
-      <td class="warning">{{item.consumption6}} Stk.</td>
-      <td class="success">{{item.consumptionEstimate1}} Stk.</td>
-      <td class="success">{{item.consumptionEstimate2}} Stk.</td>
-      <td class="success">{{item.consumptionEstimate3}} Stk.</td>
-      <td class="success">{{item.consumptionEstimate4}} Stk.</td>
-      <td class="success">{{item.consumptionEstimate5}} Stk.</td>
-      <td class="success">{{item.consumptionEstimate6}} Stk.</td>
+      <td class="warning">{{input type="text" value=item.consumption1 size=1}} Stk.</td>
+      <td class="warning">{{input type="text" value=item.consumption2 size=1}} Stk.</td>
+      <td class="warning">{{input type="text" value=item.consumption3 size=1}} Stk.</td>
+      <td class="warning">{{input type="text" value=item.consumption4 size=1}} Stk.</td>
+      <td class="warning">{{input type="text" value=item.consumption5 size=1}} Stk.</td>
+      <td class="warning">{{input type="text" value=item.consumption6 size=1}} Stk.</td>
+      <td class="success">{{format_currency item.newRate2}}</td>
+      <td class="success">{{format_currency item.newRate3}}</td>
+      <td class="success">{{format_currency item.newRate4}}</td>
+      <td class="success">{{format_currency item.newRate5}}</td>
+      <td class="success">{{format_currency item.newRate6}}</td>
       <td class="warning">{{format_currency item.balance1}}</td>
       <td class="warning">{{format_currency item.balance2}}</td>
       <td class="warning">{{format_currency item.balance3}}</td>
