@@ -2,7 +2,6 @@ App = Ember.Application.create();
 App.ApplicationAdapter = DS.FixtureAdapter;
 // App.ApplicationAdapter = DS.ActiveModelAdapter;
 
-
 // ROUTES //
 App.Router.map(function() {
   this.resource('contracts');
@@ -166,19 +165,25 @@ App.ConsumableItem = DS.Model.extend({
 
 Ember.Handlebars.helper('format_date', function(value, options) {
   moment.lang('de');
-  var formatted_date= moment(value).format('LL');
+  var formatted_date = moment(value).format('DD.MM.YYYY');
   return new Ember.Handlebars.SafeString(formatted_date);
 });
 
 Ember.Handlebars.helper('format_datetime', function(value, options) {
   moment.lang('de');
-  var formatted_date= moment(value).format('LLL');
+  var formatted_date = moment(value).format('DD.MM.YYYY, HH:mm');
   return new Ember.Handlebars.SafeString(formatted_date);
 });
 
 Ember.Handlebars.helper('format_currency', function(value, options) {
   moment.lang('de');
-  var formatted_currency= parseFloat(value, 10).toFixed(2) + ' EUR';
+  var formatted_currency = parseFloat(value, 10).toFixed(2) + ' EUR';
+  return new Ember.Handlebars.SafeString(formatted_currency);
+});
+
+Ember.Handlebars.helper('two_digits', function(value, options) {
+  moment.lang('de');
+  var formatted_currency = parseFloat(value, 10).toFixed(2);
   return new Ember.Handlebars.SafeString(formatted_currency);
 });
 
@@ -188,14 +193,12 @@ Ember.Handlebars.helper('format_currency', function(value, options) {
 App.Contract.FIXTURES = [{
   id:             1,
   term:           12,
-  startdate:      new Date(2011, 06, 01),
   createdAt:      new Date(2012, 06, 02, 12, 01, 00),
   updatedAt:      new Date(2013, 06, 03, 13, 02, 00),
   contractItems:  [1, 2]
 },{
   id:        2,
   term:      15,
-  startdate: new Date(2011, 06, 04),
   createdAt: new Date(2012, 06, 05, 12, 01, 00),
   updatedAt: new Date(2013, 06, 06, 13, 02, 00)
 }];
@@ -204,7 +207,6 @@ App.ContractItem.FIXTURES = [{
   id:               1,
   position:         1,
   term:             12,
-  startdate:        new Date(2011, 06, 01),
   productNumber:    'AB1',
   descriptionDe:    'Produkt AB1',
   descriptionEn:    'Product AB1',
@@ -226,7 +228,6 @@ App.ContractItem.FIXTURES = [{
   id:               2,
   position:         2,
   term:             11,
-  startdate:        new Date(2011, 05, 11),
   productNumber:    'CD1',
   descriptionDe:    'Produkt CD1',
   descriptionEn:    'Product CD1',
@@ -286,14 +287,31 @@ App.ConsumableItem.FIXTURES = [{
 
 // COMPONENTS //
 
-  App.ContractTablelineComponent = Ember.Component.extend({
-    tagName: 'tr'
-  });
+App.ContractTablelineComponent = Ember.Component.extend({
+  tagName: 'tr'
+});
 
-  App.ContractitemTablelineComponent = Ember.Component.extend({
-    tagName: 'tr'
-  });
+App.ContractitemTablelineComponent = Ember.Component.extend({
+  tagName: 'tr'
+});
 
-  App.ConsumableitemTablelineComponent = Ember.Component.extend({
-    tagName: 'tr'
-  });
+App.ConsumableitemTablelineComponent = Ember.Component.extend({
+  tagName: 'tr'
+});
+
+
+// VIEWS //
+
+App.DatePickerField = Em.View.extend({
+  templateName: 'datepicker',
+  didInsertElement: function() {
+    var onChangeDate, self;
+    self = this;
+    onChangeDate = function(ev) {
+      return self.set("value", moment(ev.date).format("MM-DD-YYYY"));
+    };
+    return this.$('.datepicker').datepicker({
+      separator: "."
+    }).on("changeDate", onChangeDate);
+  }
+});

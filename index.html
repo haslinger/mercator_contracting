@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/datepicker.css">
   </head>
   <body>
     <!-- TEMLATES -->
@@ -47,7 +48,7 @@
         <thead>
           <tr class="danger">
             <th>Vertrag</th>
-            <th>Laufzeit</th>
+            <th>Laufzeit (Monate)</th>
             <th>Vertragsbeginn</th>
             <th>Vertragsende</th>
             <th>Vertrag angelegt</th>
@@ -62,21 +63,21 @@
         <thead>
           <tr class="danger">
             <th>Position</th>
-            <th>Laufzeit</th>
+            <th>Laufzeit (Monate)</th>
             <th>Vertragsbeginn</th>
             <th>Vertragsende</th>
             <th>Artikelnummer</th>
             <th>Beschreibung</th>
             <th>Beschreibung (EN)</th>
             <th>Menge</th>
-            <th>Druckvolumen S/W</th>
-            <th>Druckvolumen Farbe</th>
-            <th>Produktpreis</th>
+            <th>Druckvolumen S/W (Seiten)</th>
+            <th>Druckvolumen Farbe (Seiten)</th>
+            <th>Produktpreis (EUR)</th>
             <th>Marge</th>
             <th>Mehrwertsteuer</th>
-            <th>Positionswert</th>
-            <th>Rabatt absolut </th>
-            <th>Monitoring </th>
+            <th>Positionswert (EUR)</th>
+            <th>Rabatt absolut (EUR)</th>
+            <th>Monitoring (EUR)</th>
             <th>Position angelegt</th>
             <th>Position zuletzt aktualisiert</th>
           </th>
@@ -105,21 +106,21 @@
         <thead>
           <tr class="danger">
             <th>Position</th>
-            <th>Laufzeit</th>
+            <th>Laufzeit (Monate)</th>
             <th>Vertragsbeginn</th>
             <th>Vertragsende</th>
             <th>Artikelnummer</th>
             <th>Beschreibung</th>
             <th>Beschreibung (EN)</th>
-            <th>Menge</th>
-            <th>Druckvolumen S/W</th>
-            <th>Druckvolumen Farbe</th>
-            <th>Produktpreis</th>
+            <th>Menge (Stk.)</th>
+            <th>Druckvolumen S/W (Seiten)</th>
+            <th>Druckvolumen Farbe (Seiten)</th>
+            <th>Produktpreis (EUR)</th>
             <th>Marge</th>
             <th>Mehrwertsteuer</th>
-            <th>Positionswert</th>
-            <th>Rabatt absolut </th>
-            <th>Monitoring </th>
+            <th>Positionswert (EUR)</th>
+            <th>Rabatt absolut (EUR)</th>
+            <th>Monitoring (EUR)</th>
             <th>Position angelegt</th>
             <th>Position zuletzt aktualisiert</th>
           </th>
@@ -133,9 +134,9 @@
         <thead>
           <tr>
             <th colspan=13></th>
-            <th colspan=6 class="danger">Verbrauch Jahr</th>
-            <th colspan=5 class="danger">Neuberechnung Jahr</th>
-            <th colspan=6 class="danger">Gutschrift / Nachzahlung Jahr</th>
+            <th colspan=6 class="danger">Verbrauch Jahr (Stk.)</th>
+            <th colspan=5 class="danger">Neuberechnung Jahr (EUR)</th>
+            <th colspan=6 class="danger">Gutschrift / Nachzahlung Jahr (EUR)</th>
           <tr class="danger">
             <th>Position</th>
             <th>Vertragsart</th>
@@ -143,13 +144,13 @@
             <th>Produktlinie</th>
             <th>Beschreibung</th>
             <th>Beschreibung (EN)</th>
-            <th>Menge Gesamt</th>
-            <th>Reichweite</th>
-            <th>HEK</th>
-            <th>Preis / Stück</th>
-            <th>Preis / Total</th>
-            <th>Rate p.m.</th>
-            <th>Laufzeit</th>
+            <th>Menge Gesamt (Stk.)</th>
+            <th>Reichweite (Seiten)</th>
+            <th>HEK (EUR)</th>
+            <th>Preis / Stück (EUR)</th>
+            <th>Preis / Total (EUR)</th>
+            <th>Rate p.m. (EUR)</th>
+            <th>Laufzeit (Monate)</th>
             <th>1</th>
             <th>2</th>
             <th>3</th>
@@ -181,7 +182,7 @@
           <span class="glyphicon glyphicon-zoom-out">
         {{/link-to}}
         {{#link-to 'contract' this.contract.id class="btn btn-info btn-sm"}}
-        Vertrag {{this.contract.id}}
+          Vertrag {{this.contract.id}}
         {{/link-to}}
       </div>
     </script>
@@ -192,11 +193,11 @@
           <span class="glyphicon glyphicon-zoom-in">{{item.id}}
         {{/link-to}}
       </td>
-      <td class="success">{{item.term}} Monate</td>
-      <td class="success">{{format_date item.startdate}}</td>
-      <td class="success">{{format_date item.enddate}}</td>
-      <td class="success">{{format_datetime item.createdAt}}</td>
-      <td class="success">{{format_datetime item.updatedAt}}</td>
+      <td class="success" nowrap>{{item.term}}</td>
+      <td class="success" nowrap>{{view App.DatePickerField valueBinding=item.startdate}}</td>
+      <td class="success" nowrap>{{format_date item.enddate}}</td>
+      <td class="success" nowrap>{{format_datetime item.createdAt}}</td>
+      <td class="success" nowrap>{{format_datetime item.updatedAt}}</td>
     </script>
 
     <script type="text/x-handlebars" id="components/contractitem-tableline">
@@ -205,56 +206,62 @@
           <span class="glyphicon glyphicon-zoom-in">{{item.position}}
         {{/link-to}}
       </td>
-      <td class="success">{{input type="text" value=item.term size=1}} Monate</td>
-      <td class="success">{{format_date item.startdate}}</td>
-      <td class="success">{{format_date item.enddate}}</td>
-      <td class="info">{{item.productNumber}}</td>
-      <td class="info">{{item.descriptionDe}}</td>
-      <td class="info">{{item.descriptionEn}}</td>
-      <td class="warning">{{item.amount}} {{item.unit}}</td>
-      <td class="info">{{item.volumeBW}} Seiten</td>
-      <td class="info">{{item.volumeColor}}  Seiten</td>
-      <td class="warning">{{format_currency item.productPrice}}</td>
-      <td class="warning">{{input type="text" value=item.marge size=1}}%</td>
-      <td class="warning">{{item.vat}}%</td>
-      <td class="warning">{{format_currency item.value}}</td>
-      <td class="warning">{{format_currency item.discountAbs}}</td>
-      <td class="warning">{{format_currency item.monitoringRate}}</td>
-      <td class="success">{{format_datetime item.createdAt}}</td>
-      <td class="success">{{format_datetime item.updatedAt}}</td>
+      <td class="success" nowrap>{{input type="text" value=item.term size=1}}</td>
+      <td class="success" nowrap>{{view App.DatePickerField valueBinding=item.startdate}}</td>
+      <td class="success" nowrap>{{format_date item.enddate}}</td>
+      <td class="info" nowrap>{{item.productNumber}}</td>
+      <td class="info" nowrap>{{item.descriptionDe}}</td>
+      <td class="info" nowrap>{{item.descriptionEn}}</td>
+      <td class="warning" nowrap>{{item.amount}} {{item.unit}}</td>
+      <td class="info" nowrap>{{item.volumeBW}}</td>
+      <td class="info" nowrap>{{item.volumeColor}}</td>
+      <td class="warning" nowrap>{{two_digits item.productPrice}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.marge size=1}}%</td>
+      <td class="warning" nowrap>{{item.vat}}%</td>
+      <td class="warning" nowrap>{{two_digits item.value}}</td>
+      <td class="warning" nowrap>{{two_digits item.discountAbs}}</td>
+      <td class="warning" nowrap>{{two_digits item.monitoringRate}}</td>
+      <td class="success" nowrap>{{format_datetime item.createdAt}}</td>
+      <td class="success" nowrap>{{format_datetime item.updatedAt}}</td>
     </script>
 
     <script type="text/x-handlebars" id="components/consumableitem-tableline">
       <td>{{item.position}}</td>
-      <td class="info">{{item.contractType}}</td>
-      <td class="info">{{item.productNumber}}</td>
-      <td class="info">{{item.productLine}}</td>
-      <td class="info">{{item.descriptionDe}}</td>
-      <td class="info">{{item.descriptionEn}}</td>
-      <td class="warning">{{input type="text" value=item.amount size=1}} Stk.</td>
-      <td class="info">{{item.yield}} Seiten</td>
-      <td class="warning">{{input type="text" value=item.wholesalePrice size=5}} EUR</td>
-      <td class="warning">{{format_currency item.price}}</td>
-      <td class="warning">{{format_currency item.value}}</td>
-      <td class="warning">{{format_currency item.monthlyRate}}</td>
-      <td class="success">{{input type="text" value=item.term size=1}} Monate</td>
-      <td class="warning">{{input type="text" value=item.consumption1 size=1}} Stk.</td>
-      <td class="warning">{{input type="text" value=item.consumption2 size=1}} Stk.</td>
-      <td class="warning">{{input type="text" value=item.consumption3 size=1}} Stk.</td>
-      <td class="warning">{{input type="text" value=item.consumption4 size=1}} Stk.</td>
-      <td class="warning">{{input type="text" value=item.consumption5 size=1}} Stk.</td>
-      <td class="warning">{{input type="text" value=item.consumption6 size=1}} Stk.</td>
-      <td class="success">{{format_currency item.newRate2}}</td>
-      <td class="success">{{format_currency item.newRate3}}</td>
-      <td class="success">{{format_currency item.newRate4}}</td>
-      <td class="success">{{format_currency item.newRate5}}</td>
-      <td class="success">{{format_currency item.newRate6}}</td>
-      <td class="warning">{{format_currency item.balance1}}</td>
-      <td class="warning">{{format_currency item.balance2}}</td>
-      <td class="warning">{{format_currency item.balance3}}</td>
-      <td class="warning">{{format_currency item.balance4}}</td>
-      <td class="warning">{{format_currency item.balance5}}</td>
-      <td class="warning">{{format_currency item.balance6}}</td>
+      <td class="info" nowrap>{{item.contractType}}</td>
+      <td class="info" nowrap>{{item.productNumber}}</td>
+      <td class="info" nowrap>{{item.productLine}}</td>
+      <td class="info" nowrap>{{item.descriptionDe}}</td>
+      <td class="info" nowrap>{{item.descriptionEn}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.amount size=1}}</td>
+      <td class="info" nowrap>{{input type="text" value=item.yield size=5}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.wholesalePrice size=5}}</td>
+      <td class="warning" nowrap>{{two_digits item.price}}</td>
+      <td class="warning" nowrap>{{two_digits item.value}}</td>
+      <td class="warning" nowrap>{{two_digits item.monthlyRate}}</td>
+      <td class="warning" nowrap>{{item.term}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption1 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption2 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption3 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption4 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption5 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption6 size=1}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate2}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate3}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate4}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate5}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate6}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance1}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance2}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance3}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance4}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance5}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance6}}</td>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="datepicker" >
+      <input class="datepicker" data-provide="datepicker" size="16" data-date-format="dd.mm.yyyy">
+      <span class="glyphicon glyphicon-calendar"/>
+      <!-- // http://bootstrap-datepicker.readthedocs.org/en/release/index.html -->
     </script>
 
     <!-- JAVASCRIPT -->
@@ -264,6 +271,7 @@
     <script src="js/libs/ember-data.js"></script>
     <script src="js/libs/moment-with-langs-2.6.0.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/bootstrap-datepicker.js"></script>
     <script src="js/app.js"></script>
     <!-- to activate the test runner, add the "?test" query string parameter -->
     <script src="tests/runner.js"></script>
