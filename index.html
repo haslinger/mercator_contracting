@@ -194,7 +194,7 @@
         {{/link-to}}
       </td>
       <td class="success" nowrap>{{item.term}}</td>
-      <td class="success" nowrap>{{view App.DatePickerField valueBinding=item.startdate}}</td>
+      <td class="success" nowrap>{{view App.DatePickerField value=item.startdate}}</td>
       <td class="success" nowrap>{{format_date item.enddate}}</td>
       <td class="success" nowrap>{{format_datetime item.createdAt}}</td>
       <td class="success" nowrap>{{format_datetime item.updatedAt}}</td>
@@ -207,7 +207,7 @@
         {{/link-to}}
       </td>
       <td class="success" nowrap>{{input type="text" value=item.term size=1}}</td>
-      <td class="success" nowrap>{{view App.DatePickerField valueBinding=item.startdate}}</td>
+      <td class="success" nowrap>{{view App.DatePickerField value=item.startdate}}</td>
       <td class="success" nowrap>{{format_date item.enddate}}</td>
       <td class="info" nowrap>{{item.productNumber}}</td>
       <td class="info" nowrap>{{item.descriptionDe}}</td>
@@ -259,8 +259,7 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="datepicker" >
-      <input class="datepicker" data-provide="datepicker" size="16" data-date-format="dd.mm.yyyy">
-      <span class="glyphicon glyphicon-calendar"/>
+      {{input value=view.value_as_date class="datepicker" data-provide="datepicker" size="16" data-date-format="dd.mm.yyyy"}}
       <!-- // http://bootstrap-datepicker.readthedocs.org/en/release/index.html -->
     </script>
 

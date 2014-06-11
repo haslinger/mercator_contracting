@@ -304,6 +304,11 @@ App.ConsumableitemTablelineComponent = Ember.Component.extend({
 
 App.DatePickerField = Em.View.extend({
   templateName: 'datepicker',
+
+  value_as_date: function() {
+    return moment(this.get('value')).format('DD.MM.YYYY');;
+  }.property('view.value'),
+
   didInsertElement: function() {
     var onChangeDate, self;
     self = this;
@@ -313,5 +318,10 @@ App.DatePickerField = Em.View.extend({
     return this.$('.datepicker').datepicker({
       separator: "."
     }).on("changeDate", onChangeDate);
-  }
+  },
+});
+
+// Method #2
+Ember.TextField.reopen({
+    attributeBindings: ['data-provide', 'data-date-format', 'value']
 });
