@@ -299,6 +299,18 @@ App.ConsumableitemTablelineComponent = Ember.Component.extend({
   tagName: 'tr'
 });
 
+App.ConsumableitemTheadComponent = Ember.Component.extend({
+  tagName: 'thead'
+});
+
+App.ContractitemTheadComponent = Ember.Component.extend({
+  tagName: 'thead'
+});
+
+App.ContractTheadComponent = Ember.Component.extend({
+  tagName: 'thead'
+});
+
 
 // VIEWS //
 
@@ -321,7 +333,8 @@ App.DatePickerField = Em.View.extend({
   },
 });
 
-// Method #2
+// Input Views //
+
 Ember.TextField.reopen({
-    attributeBindings: ['data-provide', 'data-date-format', 'value']
+    attributeBindings: ['data-provide', 'data-date-format'],
 });
