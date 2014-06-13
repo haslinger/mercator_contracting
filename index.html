@@ -96,9 +96,7 @@
       </table>
 
       <table class="table table-striped table-bordered table-hover table-condensed">
-        <thead>
-          {{contractitem-calendarlines item=this}}
-        </thead>
+        {{contractitem-calendarlines item=this}}
         {{consumableitem-thead}}
         <tbody>
           {{#each item in consumableItems}}
@@ -170,31 +168,39 @@
 
 
     <script type="text/x-handlebars" id="components/contractitem-calendarlines">
+      <tr>
+        <td colspan=19>&nbsp;</td>
+
+      </tr>
+      <tr>
+        <td colspan=13>&nbsp;</td>
+        <td><h6>{{plus_years_minus_days item.startdate years=0 days=1}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=1 days=0}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=2 days=0}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=3 days=0}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=4 days=0}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=5 days=0}}</h6></td>
+        <td colspan=5>Folgeraten (EUR)</td>
+      </tr>
       <td colspan=13>&nbsp;</td>
-      <td><h6><small >
-        {{plus_years_minus_days item.startdate years=0 days=1}}<br>
-        {{plus_years_minus_days item.startdate years=1 days=1}}
-      </small></h6></td>
-      <td><h6><small>
-        {{plus_years_minus_days item.startdate years=1 days=0}}<br>
-        {{plus_years_minus_days item.startdate years=2 days=1}}
-      </small></h6></td>
-      <td><h6><small>
-        {{plus_years_minus_days item.startdate years=2 days=0}}<br>
-        {{plus_years_minus_days item.startdate years=3 days=1}}
-      </small></h6></td>
-      <td><h6><small>
-        {{plus_years_minus_days item.startdate years=3 days=0}}<br>
-        {{plus_years_minus_days item.startdate years=4 days=1}}
-      </small></h6></td>
-      <td><h6><small>
-        {{plus_years_minus_days item.startdate years=4 days=0}}<br>
-        {{plus_years_minus_days item.startdate years=5 days=1}}
-      </small></h6></td>
-      <td><h6><small>
-        {{plus_years_minus_days item.startdate years=5 days=0}}<br>
-        {{plus_years_minus_days item.startdate years=6 days=1}}
-      </small></h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=1 days=1}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=2 days=1}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=3 days=1}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=4 days=1}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=5 days=1}}</h6></td>
+        <td><h6>{{plus_years_minus_days item.startdate years=6 days=1}}</h6></td>
+        <td>{{two_digits item.newRate2}}</td>
+        <td>{{two_digits item.newRate3}}</td>
+        <td>{{two_digits item.newRate4}}</td>
+        <td>{{two_digits item.newRate5}}</td>
+        <td>{{two_digits item.newRate6}}</td>
+        <td>{{two_digits item.balance1}}</td>
+        <td>{{two_digits item.balance2}}</td>
+        <td>{{two_digits item.balance3}}</td>
+        <td>{{two_digits item.balance4}}</td>
+        <td>{{two_digits item.balance5}}</td>
+        <td>{{two_digits item.balance6}}</td>
+      </tr>
     </script>
 
     <script type="text/x-handlebars" id="components/consumableitem-thead">

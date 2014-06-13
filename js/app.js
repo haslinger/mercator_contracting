@@ -77,7 +77,90 @@ App.ContractItem = DS.Model.extend({
 
   valueInclVat: function() {
     return this.get('value') * ( 100 + parseFloat(this.get('vat'))) / 100;
-  }.property('value', 'vat')
+  }.property('value', 'vat'),
+
+  newRate2: function() {
+    var consumableItems = this.get('consumableItems');
+    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('newRate2');
+    });
+    return sumOfRates + parseFloat(this.get('monitoringRate'));
+  }.property('consumableItems.@each.newRate2', 'monitoringRate'),
+
+  newRate3: function() {
+    var consumableItems = this.get('consumableItems');
+    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('newRate3');
+    });
+    return sumOfRates + parseFloat(this.get('monitoringRate'));
+  }.property('consumableItems.@each.newRate3', 'monitoringRate'),
+
+  newRate4: function() {
+    var consumableItems = this.get('consumableItems');
+    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('newRate4');
+    });
+    return sumOfRates + parseFloat(this.get('monitoringRate'));
+  }.property('consumableItems.@each.newRate4', 'monitoringRate'),
+
+  newRate5: function() {
+    var consumableItems = this.get('consumableItems');
+    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('newRate5');
+    });
+    return sumOfRates + parseFloat(this.get('monitoringRate'));
+  }.property('consumableItems.@each.newRate5', 'monitoringRate'),
+
+  newRate6: function() {
+    var consumableItems = this.get('consumableItems');
+    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('newRate6');
+    });
+    return sumOfRates + parseFloat(this.get('monitoringRate'));
+  }.property('consumableItems.@each.newRate6', 'monitoringRate'),
+
+  balance1: function() {
+    var consumableItems = this.get('consumableItems');
+    return consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('balance1');
+    });
+  }.property('consumableItems.@each.balance1', 'monitoringRate'),
+
+  balance2: function() {
+    var consumableItems = this.get('consumableItems');
+    return consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('balance2');
+    });
+  }.property('consumableItems.@each.balance2', 'monitoringRate'),
+
+  balance3: function() {
+    var consumableItems = this.get('consumableItems');
+    return consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('balance3');
+    });
+  }.property('consumableItems.@each.balance3', 'monitoringRate'),
+
+  balance4: function() {
+    var consumableItems = this.get('consumableItems');
+    return consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('balance4');
+    });
+  }.property('consumableItems.@each.balance4', 'monitoringRate'),
+
+  balance5: function() {
+    var consumableItems = this.get('consumableItems');
+    return consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('balance5');
+    });
+  }.property('consumableItems.@each.balance5', 'monitoringRate'),
+
+  balance6: function() {
+    var consumableItems = this.get('consumableItems');
+    return consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('balance6');
+    });
+  }.property('consumableItems.@each.balance6', 'monitoringRate')
+
 });
 
 App.ConsumableItem = DS.Model.extend({
@@ -328,7 +411,7 @@ App.ContractitemTablelineComponent = Ember.Component.extend({
 
 
 App.ContractitemCalendarlineComponent = Ember.Component.extend({
-  tagName: 'tr'
+  tagName: 'thead'
 });
 
 App.ConsumableitemTheadComponent = Ember.Component.extend({
