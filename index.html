@@ -5,10 +5,10 @@
     <title>Vertragswesen</title>
     <!-- CSS -->
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
     <link rel="stylesheet" href="css/datepicker.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <!-- TEMLATES -->
@@ -59,6 +59,32 @@
       </div>
     </script>
 
+    <script type="text/x-handlebars" id="components/contract-thead">
+      <tr>
+        <th>ID</th>
+        <th>Laufzeit (Monate)</th>
+        <th>Vertragsbeginn</th>
+        <th>Vertragsende</th>
+        <th>Vertrag angelegt</th>
+        <th>Vertrag zuletzt aktualisiert</th>
+      </th>
+    </script>
+
+    <script type="text/x-handlebars" id="components/contract-tableline">
+      <td>
+        {{#link-to 'contract' item.id}}
+          <span class="glyphicon glyphicon-zoom-in">{{item.id}}
+        {{/link-to}}
+      </td>
+      <td class="success" nowrap>{{input type="text" value=item.term size=1}}</td>
+      <td class="success" nowrap>{{view App.DatePickerField value=item.startdate}}</td>
+      <td class="success" nowrap>{{format_date item.enddate}}</td>
+      <td class="success" nowrap>{{format_datetime item.createdAt}}</td>
+      <td class="success" nowrap>{{format_datetime item.updatedAt}}</td>
+    </script>
+
+
+
     <script type="text/x-handlebars" data-template-name="contractItem">
       <h2> Vertragsposition </h2>
 
@@ -70,6 +96,9 @@
       </table>
 
       <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+          {{contractitem-calendarlines item=this}}
+        </thead>
         {{consumableitem-thead}}
         <tbody>
           {{#each item in consumableItems}}
@@ -89,18 +118,7 @@
       </div>
     </script>
 
-    <script type="text/x-handlebars" id="components/contract-tableline">
-      <td>
-        {{#link-to 'contract' item.id}}
-          <span class="glyphicon glyphicon-zoom-in">{{item.id}}
-        {{/link-to}}
-      </td>
-      <td class="success" nowrap>{{input type="text" value=item.term size=1}}</td>
-      <td class="success" nowrap>{{view App.DatePickerField value=item.startdate}}</td>
-      <td class="success" nowrap>{{format_date item.enddate}}</td>
-      <td class="success" nowrap>{{format_datetime item.createdAt}}</td>
-      <td class="success" nowrap>{{format_datetime item.updatedAt}}</td>
-    </script>
+
 
     <script type="text/x-handlebars" id="components/contractitem-thead">
       <tr>
@@ -150,37 +168,33 @@
       <td class="success" nowrap>{{format_datetime item.updatedAt}}</td>
     </script>
 
-    <script type="text/x-handlebars" id="components/consumableitem-tableline">
-      <td>{{item.position}}</td>
-      <td class="info" nowrap>{{input type="text" value=item.contractType}}</td>
-      <td class="info" nowrap>{{input type="text" value=item.productNumber}}</td>
-      <td class="info" nowrap>{{input type="text" value=item.productLine}}</td>
-      <td class="info" nowrap>{{input type="text" value=item.descriptionDe}}</td>
-      <td class="info" nowrap>{{input type="text" value=item.descriptionEn}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.amount size=1}}</td>
-      <td class="info" nowrap>{{input type="text" value=item.yield size=5}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.wholesalePrice size=10}}</td>
-      <td class="warning" nowrap>{{two_digits item.price}}</td>
-      <td class="warning" nowrap>{{two_digits item.value}}</td>
-      <td class="warning" nowrap>{{two_digits item.monthlyRate}}</td>
-      <td class="warning" nowrap>{{item.term}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.consumption1 size=1}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.consumption2 size=1}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.consumption3 size=1}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.consumption4 size=1}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.consumption5 size=1}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.consumption6 size=1}}</td>
-      <td class="success" nowrap>{{two_digits item.newRate2}}</td>
-      <td class="success" nowrap>{{two_digits item.newRate3}}</td>
-      <td class="success" nowrap>{{two_digits item.newRate4}}</td>
-      <td class="success" nowrap>{{two_digits item.newRate5}}</td>
-      <td class="success" nowrap>{{two_digits item.newRate6}}</td>
-      <td class="warning" nowrap>{{two_digits item.balance1}}</td>
-      <td class="warning" nowrap>{{two_digits item.balance2}}</td>
-      <td class="warning" nowrap>{{two_digits item.balance3}}</td>
-      <td class="warning" nowrap>{{two_digits item.balance4}}</td>
-      <td class="warning" nowrap>{{two_digits item.balance5}}</td>
-      <td class="warning" nowrap>{{two_digits item.balance6}}</td>
+
+    <script type="text/x-handlebars" id="components/contractitem-calendarlines">
+      <td colspan=13>&nbsp;</td>
+      <td><h6><small >
+        {{plus_years_minus_days item.startdate years=0 days=1}}<br>
+        {{plus_years_minus_days item.startdate years=1 days=1}}
+      </small></h6></td>
+      <td><h6><small>
+        {{plus_years_minus_days item.startdate years=1 days=0}}<br>
+        {{plus_years_minus_days item.startdate years=2 days=1}}
+      </small></h6></td>
+      <td><h6><small>
+        {{plus_years_minus_days item.startdate years=2 days=0}}<br>
+        {{plus_years_minus_days item.startdate years=3 days=1}}
+      </small></h6></td>
+      <td><h6><small>
+        {{plus_years_minus_days item.startdate years=3 days=0}}<br>
+        {{plus_years_minus_days item.startdate years=4 days=1}}
+      </small></h6></td>
+      <td><h6><small>
+        {{plus_years_minus_days item.startdate years=4 days=0}}<br>
+        {{plus_years_minus_days item.startdate years=5 days=1}}
+      </small></h6></td>
+      <td><h6><small>
+        {{plus_years_minus_days item.startdate years=5 days=0}}<br>
+        {{plus_years_minus_days item.startdate years=6 days=1}}
+      </small></h6></td>
     </script>
 
     <script type="text/x-handlebars" id="components/consumableitem-thead">
@@ -224,15 +238,37 @@
       </tr>
     </script>
 
-    <script type="text/x-handlebars" id="components/contract-thead">
-      <tr>
-        <th>ID</th>
-        <th>Laufzeit (Monate)</th>
-        <th>Vertragsbeginn</th>
-        <th>Vertragsende</th>
-        <th>Vertrag angelegt</th>
-        <th>Vertrag zuletzt aktualisiert</th>
-      </th>
+    <script type="text/x-handlebars" id="components/consumableitem-tableline">
+      <td>{{item.position}}</td>
+      <td class="info" nowrap>{{input type="text" value=item.contractType}}</td>
+      <td class="info" nowrap>{{input type="text" value=item.productNumber}}</td>
+      <td class="info" nowrap>{{input type="text" value=item.productLine}}</td>
+      <td class="info" nowrap>{{input type="text" value=item.descriptionDe}}</td>
+      <td class="info" nowrap>{{input type="text" value=item.descriptionEn}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.amount size=1}}</td>
+      <td class="info" nowrap>{{input type="text" value=item.yield size=5}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.wholesalePrice size=10}}</td>
+      <td class="warning" nowrap>{{two_digits item.price}}</td>
+      <td class="warning" nowrap>{{two_digits item.value}}</td>
+      <td class="warning" nowrap>{{two_digits item.monthlyRate}}</td>
+      <td class="warning" nowrap>{{item.term}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption1 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption2 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption3 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption4 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption5 size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.consumption6 size=1}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate2}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate3}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate4}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate5}}</td>
+      <td class="success" nowrap>{{two_digits item.newRate6}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance1}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance2}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance3}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance4}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance5}}</td>
+      <td class="warning" nowrap>{{two_digits item.balance6}}</td>
     </script>
 
     <script type="text/x-handlebars" data-template-name="datepicker" >

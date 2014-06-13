@@ -204,6 +204,14 @@ Ember.Handlebars.helper('two_digits', function(value, options) {
   return new Ember.Handlebars.SafeString(formatted_currency);
 });
 
+Ember.Handlebars.helper('plus_years_minus_days', function(value, options) {
+  moment.lang('de');
+  var formatted_date = moment(value).add('years', options.hash['years'])
+                                    .subtract('days', options.hash['days'])
+                                    .format('DD.MM.YY');
+  return new Ember.Handlebars.SafeString(formatted_date);
+});
+
 
 // FIXTURES //
 
@@ -300,15 +308,26 @@ App.ConsumableItem.FIXTURES = [{
 
 // COMPONENTS //
 
+App.ContractTheadComponent = Ember.Component.extend({
+  tagName: 'thead'
+});
+
 App.ContractTablelineComponent = Ember.Component.extend({
   tagName: 'tr'
+});
+
+
+
+App.ContractitemTheadComponent = Ember.Component.extend({
+  tagName: 'thead'
 });
 
 App.ContractitemTablelineComponent = Ember.Component.extend({
   tagName: 'tr'
 });
 
-App.ConsumableitemTablelineComponent = Ember.Component.extend({
+
+App.ContractitemCalendarlineComponent = Ember.Component.extend({
   tagName: 'tr'
 });
 
@@ -316,12 +335,8 @@ App.ConsumableitemTheadComponent = Ember.Component.extend({
   tagName: 'thead'
 });
 
-App.ContractitemTheadComponent = Ember.Component.extend({
-  tagName: 'thead'
-});
-
-App.ContractTheadComponent = Ember.Component.extend({
-  tagName: 'thead'
+App.ConsumableitemTablelineComponent = Ember.Component.extend({
+  tagName: 'tr'
 });
 
 
