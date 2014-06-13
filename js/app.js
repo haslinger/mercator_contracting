@@ -49,18 +49,35 @@ App.ContractItem = DS.Model.extend({
   unit:            DS.attr('string'),
   volumeBW:        DS.attr('number'),
   volumeColor:     DS.attr('number'),
-  productPrice:    DS.attr('number'),
   marge:           DS.attr('number'),
   vat:             DS.attr('number'),
-  value:           DS.attr('number'),
   discountAbs:     DS.attr('number'),
   monitoringRate:  DS.attr('number'),
   createdAt:       DS.attr('date'),
   updatedAt:       DS.attr('date'),
 
+  price: function() {
+    var consumableItems = this.get('consumableItems');
+    return consumableItems.reduce(function(prevVal, item) {
+      return (prevVal || 0) + item.get('value');
+    });
+  }.property('consumableItems.@each.value'),
+
   enddate: function() {
     return moment(this.get('startdate')).add('months', this.get('term')).subtract('days', 1);
-  }.property('startdate', 'term')
+  }.property('startdate', 'term'),
+
+  monthlyRate: function() {
+    return this.get('price') / this.get('term');
+  }.property('price', 'term'),
+
+  value: function() {
+    return this.get('monthlyRate') + parseFloat(this.get('monitoringRate')) - this.get('discountAbs');
+  }.property('monthlyRate', 'monitoringRate', 'discountAbs'),
+
+  valueInclVat: function() {
+    return this.get('value') * ( 100 + parseFloat(this.get('vat'))) / 100;
+  }.property('value', 'vat')
 });
 
 App.ConsumableItem = DS.Model.extend({
@@ -214,10 +231,8 @@ App.ContractItem.FIXTURES = [{
   unit:             'Stk',
   volumeBW:         2000,
   volumeColor:      2000,
-  productPrice:     1250,
   marge:            15,
   vat:              20,
-  value:            4000,
   discountAbs:      27,
   monitoringRate:   5,
   createdAt:        new Date(2014, 06, 07, 12, 00, 00),
@@ -235,10 +250,8 @@ App.ContractItem.FIXTURES = [{
   unit:             'Stk',
   volumeBW:         3500,
   volumeColor:      2000,
-  productPrice:     3250,
   marge:            15,
   vat:              20,
-  value:            12323,
   discountAbs:      23,
   monitoringRate:   5,
   createdAt:        new Date(2014, 06, 09, 12, 00, 00),

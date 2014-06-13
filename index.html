@@ -102,12 +102,33 @@
       <td class="success" nowrap>{{format_datetime item.updatedAt}}</td>
     </script>
 
+    <script type="text/x-handlebars" id="components/contractitem-thead">
+      <tr>
+        <th>Position</th>
+        <th>Laufzeit (Monate)</th>
+        <th>Vertragsbeginn</th>
+        <th>Vertragsende</th>
+        <th>Artikelnummer</th>
+        <th>Beschreibung</th>
+        <th>Beschreibung (EN)</th>
+        <th>Menge (Stk.)</th>
+        <th>Marge (%)</th>
+        <th>Druckvolumen S/W (Seiten)</th>
+        <th>Druckvolumen Farbe (Seiten)</th>
+        <th>Produktpreis (EUR)</th>
+        <th>Monatsbetrag (EUR)</th>
+        <th>Monitoring (EUR)</th>
+        <th>Rabatt absolut (EUR)</th>
+        <th>Positionswert excl.(EUR)</th>
+        <th>Mehrwertsteuer</th>
+        <th>Positionswert incl.(EUR)</th>
+        <th>Position angelegt</th>
+        <th>Position zuletzt aktualisiert</th>
+      </tr>
+    </script>
+
     <script type="text/x-handlebars" id="components/contractitem-tableline">
-      <td>
-        {{#link-to 'contractItem' item.id}}
-          <span class="glyphicon glyphicon-zoom-in">{{item.position}}
-        {{/link-to}}
-      </td>
+      <td> {{#link-to 'contractItem' item.id}} <span class="glyphicon glyphicon-zoom-in">{{item.position}} {{/link-to}} </td>
       <td class="success" nowrap>{{input type="text" value=item.term size=1}}</td>
       <td class="success" nowrap>{{view App.DatePickerField value=item.startdate}}</td>
       <td class="success" nowrap>{{format_date item.enddate}}</td>
@@ -115,14 +136,16 @@
       <td class="info" nowrap>{{input type="text" value=item.descriptionDe}}</td>
       <td class="info" nowrap>{{input type="text" value=item.descriptionEn}}</td>
       <td class="warning" nowrap>{{input type="text" value=item.amount size=3}} {{input type="text" value=item.unit size=3}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.marge size=1}}</td>
       <td class="info" nowrap>{{input type="text" value=item.volumeBW size=4}}</td>
       <td class="info" nowrap>{{input type="text" value=item.volumeColor  size=4}}</td>
-      <td class="warning" nowrap>{{two_digits item.productPrice}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.marge size=1}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.vat size=1}}%</td>
-      <td class="warning" nowrap>{{input type="text" value=item.value size=3}}</td>
-      <td class="warning" nowrap>{{input type="text" value=item.discountAbs size=3}}</td>
+      <td class="warning" nowrap>{{two_digits item.price}}</td>
+      <td class="warning" nowrap>{{two_digits item.monthlyRate}}</td>
       <td class="warning" nowrap>{{input type="text" value=item.monitoringRate size=1}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.discountAbs size=3}}</td>
+      <td class="warning" nowrap>{{two_digits item.value}}</td>
+      <td class="warning" nowrap>{{input type="text" value=item.vat size=1}}%</td>
+      <td class="warning" nowrap>{{two_digits item.valueInclVat}}</td>
       <td class="success" nowrap>{{format_datetime item.createdAt}}</td>
       <td class="success" nowrap>{{format_datetime item.updatedAt}}</td>
     </script>
@@ -198,29 +221,6 @@
         <th>4</th>
         <th>5</th>
         <th>6</th>
-      </tr>
-    </script>
-
-    <script type="text/x-handlebars" id="components/contractitem-thead">
-      <tr>
-        <th>Position</th>
-        <th>Laufzeit (Monate)</th>
-        <th>Vertragsbeginn</th>
-        <th>Vertragsende</th>
-        <th>Artikelnummer</th>
-        <th>Beschreibung</th>
-        <th>Beschreibung (EN)</th>
-        <th>Menge (Stk.)</th>
-        <th>Druckvolumen S/W (Seiten)</th>
-        <th>Druckvolumen Farbe (Seiten)</th>
-        <th>Produktpreis (EUR)</th>
-        <th>Marge (%)</th>
-        <th>Mehrwertsteuer</th>
-        <th>Positionswert (EUR)</th>
-        <th>Rabatt absolut (EUR)</th>
-        <th>Monitoring (EUR)</th>
-        <th>Position angelegt</th>
-        <th>Position zuletzt aktualisiert</th>
       </tr>
     </script>
 
