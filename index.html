@@ -170,7 +170,14 @@
     <script type="text/x-handlebars" id="components/contractitem-calendarlines">
       <tr>
         <td colspan=19>&nbsp;</td>
-
+        <td colspan=5>Folgeraten (EUR)</td>
+        <td>{{item.monthsWithoutRates1}}</td>
+        <td>{{item.monthsWithoutRates2}}</td>
+        <td>{{item.monthsWithoutRates3}}</td>
+        <td>{{item.monthsWithoutRates4}}</td>
+        <td>{{item.monthsWithoutRates5}}</td>
+        <td>---</td>
+        <td>Monate ohne Rate</td>
       </tr>
       <tr>
         <td colspan=13>&nbsp;</td>
@@ -180,7 +187,18 @@
         <td><h6>{{plus_years_minus_days item.startdate years=3 days=0}}</h6></td>
         <td><h6>{{plus_years_minus_days item.startdate years=4 days=0}}</h6></td>
         <td><h6>{{plus_years_minus_days item.startdate years=5 days=0}}</h6></td>
-        <td colspan=5>Folgeraten (EUR)</td>
+        <td>{{two_digits item.newRate2}}</td>
+        <td>{{two_digits item.newRate3}}</td>
+        <td>{{two_digits item.newRate4}}</td>
+        <td>{{two_digits item.newRate5}}</td>
+        <td>{{two_digits item.newRate6}}</td>
+        <td>{{two_digits item.nextMonth1}}</td>
+        <td>{{two_digits item.nextMonth2}}</td>
+        <td>{{two_digits item.nextMonth3}}</td>
+        <td>{{two_digits item.nextMonth4}}</td>
+        <td>{{two_digits item.nextMonth5}}</td>
+        <td>---</td>
+        <td>Folgemonat</td>
       </tr>
       <td colspan=13>&nbsp;</td>
         <td><h6>{{plus_years_minus_days item.startdate years=1 days=1}}</h6></td>
@@ -189,17 +207,18 @@
         <td><h6>{{plus_years_minus_days item.startdate years=4 days=1}}</h6></td>
         <td><h6>{{plus_years_minus_days item.startdate years=5 days=1}}</h6></td>
         <td><h6>{{plus_years_minus_days item.startdate years=6 days=1}}</h6></td>
-        <td>{{two_digits item.newRate2}}</td>
-        <td>{{two_digits item.newRate3}}</td>
-        <td>{{two_digits item.newRate4}}</td>
-        <td>{{two_digits item.newRate5}}</td>
-        <td>{{two_digits item.newRate6}}</td>
+        <td>{{two_digits item.newRateWithMonitoring2}}</td>
+        <td>{{two_digits item.newRateWithMonitoring3}}</td>
+        <td>{{two_digits item.newRateWithMonitoring4}}</td>
+        <td>{{two_digits item.newRateWithMonitoring5}}</td>
+        <td>{{two_digits item.newRateWithMonitoring6}}</td>
         <td>{{two_digits item.balance1}}</td>
         <td>{{two_digits item.balance2}}</td>
         <td>{{two_digits item.balance3}}</td>
         <td>{{two_digits item.balance4}}</td>
         <td>{{two_digits item.balance5}}</td>
         <td>{{two_digits item.balance6}}</td>
+        <td>Summe Gutschrift/Nachzahlung</td>
       </tr>
     </script>
 

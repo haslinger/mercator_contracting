@@ -81,43 +81,58 @@ App.ContractItem = DS.Model.extend({
 
   newRate2: function() {
     var consumableItems = this.get('consumableItems');
-    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+    return consumableItems.reduce(function(prevVal, item) {
       return (prevVal || 0) + item.get('newRate2');
     });
-    return sumOfRates + parseFloat(this.get('monitoringRate'));
-  }.property('consumableItems.@each.newRate2', 'monitoringRate'),
+  }.property('consumableItems.@each.newRate2'),
+
+  newRateWithMonitoring2: function() {
+    return this.get('newRate2') + parseFloat(this.get('monitoringRate'));
+  }.property('newRate2', 'monitoringRate'),
 
   newRate3: function() {
     var consumableItems = this.get('consumableItems');
-    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+    return consumableItems.reduce(function(prevVal, item) {
       return (prevVal || 0) + item.get('newRate3');
     });
-    return sumOfRates + parseFloat(this.get('monitoringRate'));
-  }.property('consumableItems.@each.newRate3', 'monitoringRate'),
+  }.property('consumableItems.@each.newRate3'),
+
+  newRateWithMonitoring3: function() {
+    return this.get('newRate3') + parseFloat(this.get('monitoringRate'));
+  }.property('newRate3', 'monitoringRate'),
 
   newRate4: function() {
     var consumableItems = this.get('consumableItems');
-    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+    return consumableItems.reduce(function(prevVal, item) {
       return (prevVal || 0) + item.get('newRate4');
     });
-    return sumOfRates + parseFloat(this.get('monitoringRate'));
-  }.property('consumableItems.@each.newRate4', 'monitoringRate'),
+  }.property('consumableItems.@each.newRate4'),
+
+  newRateWithMonitoring4: function() {
+    return this.get('newRate4') + parseFloat(this.get('monitoringRate'));
+  }.property('newRate4', 'monitoringRate'),
 
   newRate5: function() {
     var consumableItems = this.get('consumableItems');
-    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+    return consumableItems.reduce(function(prevVal, item) {
       return (prevVal || 0) + item.get('newRate5');
     });
-    return sumOfRates + parseFloat(this.get('monitoringRate'));
-  }.property('consumableItems.@each.newRate5', 'monitoringRate'),
+  }.property('consumableItems.@each.newRate5'),
+
+  newRateWithMonitoring5: function() {
+    return this.get('newRate5') + parseFloat(this.get('monitoringRate'));
+  }.property('newRate5', 'monitoringRate'),
 
   newRate6: function() {
     var consumableItems = this.get('consumableItems');
-    sumOfRates = consumableItems.reduce(function(prevVal, item) {
+    return consumableItems.reduce(function(prevVal, item) {
       return (prevVal || 0) + item.get('newRate6');
     });
-    return sumOfRates + parseFloat(this.get('monitoringRate'));
-  }.property('consumableItems.@each.newRate6', 'monitoringRate'),
+  }.property('consumableItems.@each.newRate6'),
+
+  newRateWithMonitoring6: function() {
+    return this.get('newRate6') + parseFloat(this.get('monitoringRate'));
+  }.property('newRate6', 'monitoringRate'),
 
   balance1: function() {
     var consumableItems = this.get('consumableItems');
@@ -159,8 +174,68 @@ App.ContractItem = DS.Model.extend({
     return consumableItems.reduce(function(prevVal, item) {
       return (prevVal || 0) + item.get('balance6');
     });
-  }.property('consumableItems.@each.balance6', 'monitoringRate')
+  }.property('consumableItems.@each.balance6', 'monitoringRate'),
 
+  monthsWithoutRates1: function() {
+    if(this.get('balance1') < 0) {
+      return Math.floor(this.get('balance1') / this.get('newRate1')) * (-1)
+    } else {
+      return 0
+    }
+  }.property('newRate1', 'balance1'),
+
+  monthsWithoutRates2: function() {
+    if(this.get('balance2') < 0) {
+      return Math.floor(this.get('balance2') / this.get('newRate2')) * (-1)
+    } else {
+      return 0
+    }
+  }.property('newRate2', 'balance2'),
+
+  monthsWithoutRates3: function() {
+    if(this.get('balance3') < 0) {
+      return Math.floor(this.get('balance3') / this.get('newRate3')) * (-1)
+    } else {
+      return 0
+    }
+  }.property('newRate3', 'balance3'),
+
+  monthsWithoutRates4: function() {
+    if(this.get('balance4') < 0) {
+      return Math.floor(this.get('balance4') / this.get('newRate4')) * (-1)
+    } else {
+      return 0
+    }
+  }.property('newRate4', 'balance4'),
+
+  monthsWithoutRates5: function() {
+    if(this.get('balance5') < 0) {
+      return Math.floor(this.get('balance5') / this.get('newRate5')) * (-1)
+    } else {
+      return 0
+    }
+  }.property('newRate5', 'balance5'),
+
+  nextMonth1: function() {
+    return ((this.get('monthsWithoutRates1') * this.get('newRate2')) + parseFloat(this.get('balance1'))) * (-1)
+  }.property('monthsWithoutRates1', 'newRate2', 'balance1'),
+
+  nextMonth2: function() {
+    return ((this.get('monthsWithoutRates2') * this.get('newRate3')) + parseFloat(this.get('balance2'))) * (-1)
+  }.property('monthsWithoutRates2', 'newRate3', 'balance2'),
+
+  nextMonth3: function() {
+    debugger;
+    return ((this.get('monthsWithoutRates3') * this.get('newRate4')) + parseFloat(this.get('balance3'))) * (-1)
+  }.property('monthsWithoutRates3', 'newRate4', 'balance3'),
+
+  nextMonth4: function() {
+    return ((this.get('monthsWithoutRates4') * this.get('newRate5')) + parseFloat(this.get('balance4'))) * (-1)
+  }.property('monthsWithoutRates4', 'newRate5', 'balance4'),
+
+  nextMonth5: function() {
+    return ((this.get('monthsWithoutRates5') * this.get('newRate6')) + parseFloat(this.get('balance5'))) * (-1)
+  }.property('monthsWithoutRates5', 'newRate6', 'balance5')
 });
 
 App.ConsumableItem = DS.Model.extend({
